@@ -1,0 +1,29 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.sublime-workspace
+.sublime-project
+
+# Logs
+*.log
+
+# Backup / archive folders we don't want in the repo
+Archive/
+
+# Claude Code local state
+.claude/
