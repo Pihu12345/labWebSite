@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Functional Vision Lab — Reimagined</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5fbfa;
+  --bg-2:#eef8f7;
+  --surface:#ffffff;
+  --surface-2:rgba(255,255,255,.72);
+  --surface-dark:#103b3f;
+  --surface-dark-2:#0d3135;
+  --line:#d8e9e7;
+  --line-strong:#b8d7d3;
+  --text:#14363b;
+  --muted:#5e7f83;
+  --brand:#147b7b;
+  --brand-2:#29a2a2;
+  --brand-soft:#d8f5f3;
+  --accent:#d47b4c;
+  --accent-soft:#fde9dc;
+  --shadow:0 20px 60px rgba(16,59,63,.10);
+  --shadow-soft:0 10px 30px rgba(16,59,63,.08);
+  --radius:24px;
+  --radius-md:18px;
+  --max:1200px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'DM Sans',system-ui,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(41,162,162,.08), transparent 28%),
+    radial-gradient(circle at 85% 10%, rgba(212,123,76,.08), transparent 22%),
+    linear-gradient(180deg,#f8fcfc 0%, #f3faf9 38%, #eff8f7 100%);
+  line-height:1.65;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.page{display:none;animation:fade .35s ease}
+.page.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.shell{width:min(var(--max),calc(100% - 40px));margin:0 auto}
+.section{padding:88px 0}
+.section.alt{background:linear-gradient(180deg,rgba(255,255,255,.5),rgba(255,255,255,.75));border-top:1px solid rgba(184,215,211,.45);border-bottom:1px solid rgba(184,215,211,.45)}
+.section.dark{background:linear-gradient(180deg,var(--surface-dark),var(--surface-dark-2));color:#fff}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--brand);
+}
+.lab-photo {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  filter: grayscale(0);
+  transition: filter 0.3s ease;
+}
+
+.research-publications {
+  margin-top: 2rem;
+}
+
+.publication-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+}
+
+.publication-list li {
+  margin-bottom: 0.5rem;
+}
+
+.publication-list a {
+  color: #0f766e;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.publication-list a:hover {
+  text-decoration: underline;
+}
+
+.scholar-link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: #0f766e;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.scholar-link:hover {
+  text-decoration: underline;
+}
+
+.lab-photo:hover {
+  filter: grayscale(100%);
+}
+.person-card img.lab-photo {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+}
+.eyebrow::before{content:"";width:28px;height:1px;background:currentColor;opacity:.55}
+.section-head{display:flex;justify-content:space-between;gap:24px;align-items:end;margin-bottom:28px}
+.section-head h2{font:400 clamp(2rem,3vw,3.25rem)/1.05 'DM Serif Display',serif;max-width:720px}
+.section-head p{max-width:520px;color:var(--muted);font-size:15px}
+.grid{display:grid;gap:22px}
+.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{
+  background:var(--surface-2);
+  backdrop-filter:blur(12px);
+  border:1px solid rgba(184,215,211,.7);
+  box-shadow:var(--shadow-soft);
+  border-radius:var(--radius-md);
+  padding:26px;
+  transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease, background .22s ease;
+}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--line-strong);background:#fff}
+.card h3{font-size:18px;line-height:1.3;margin:0 0 10px}
+.card p{font-size:14px;color:var(--muted)}
+.icon-chip{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;margin-bottom:16px;font-size:18px;background:linear-gradient(135deg,var(--brand-soft),#fff);border:1px solid var(--line)}
+.topbar{
+  position:sticky;top:14px;z-index:1000;
+  width:min(var(--max),calc(100% - 24px));margin:14px auto 0;
+  background:rgba(255,255,255,.72);backdrop-filter:blur(18px);
+  border:1px solid rgba(184,215,211,.6);box-shadow:var(--shadow-soft);
+  border-radius:20px;padding:12px 18px;
+  display:flex;align-items:center;gap:16px;
+}
+.brand-mark{display:flex;align-items:center;gap:12px;min-width:max-content}
+.brand-orbs{display:flex;gap:6px}
+.brand-orbs span{width:10px;height:10px;border-radius:50%}
+.brand-title{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--text)}
+.nav-links{display:flex;gap:10px;flex-wrap:wrap;margin-left:auto;align-items:center}
+.nav-links a{
+  padding:10px 14px;border-radius:999px;font-size:13px;color:var(--muted);font-weight:500;
+  transition:.2s ease;cursor:pointer
+}
+.nav-links a:hover,.nav-links a.active{background:#fff;color:var(--text);box-shadow:0 6px 18px rgba(16,59,63,.08)}
+.nav-links .cta{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff}
+
+/* Dropdown styles */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown-toggle {
+  padding:10px 14px;
+  border-radius:999px;
+  font-size:13px;
+  color:var(--muted);
+  font-weight:500;
+  transition:.2s ease;
+  cursor:pointer;
+  background:transparent;
+  border:none;
+  font-family:inherit;
+  display:flex;
+  align-items:center;
+  gap:4px;
+}
+.dropdown-toggle:hover{background:#fff;color:var(--text);box-shadow:0 6px 18px rgba(16,59,63,.08)}
+.dropdown-toggle .arrow{font-size:10px;transition:transform .3s ease;display:inline-block}
+.dropdown.open .dropdown-toggle .arrow{transform:rotate(180deg)}
+.dropdown-menu {
+  display:none;
+  position:absolute;
+  top:calc(100% + 8px);
+  left:0;
+  min-width:220px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:16px;
+  box-shadow:var(--shadow);
+  padding:8px;
+  z-index:100;
+  animation:fade .25s ease;
+}
+.dropdown.open .dropdown-menu{display:block}
+.dropdown-menu a {
+  display:block;
+  padding:10px 14px;
+  border-radius:12px;
+  font-size:13px;
+  color:var(--text);
+  font-weight:500;
+  transition:.2s ease;
+  cursor:pointer;
+}
+.dropdown-menu a:hover{background:var(--brand-soft);color:var(--brand)}
+.dropdown-menu .divider{height:1px;background:var(--line);margin:6px 8px}
+.dropdown-menu .menu-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:6px 14px 4px}
+
+.hero-wrap{padding:36px 0 22px}
+.hero{
+  width:min(var(--max),calc(100% - 40px));margin:0 auto;
+  min-height:680px;border-radius:36px;overflow:hidden;position:relative;
+  background:
+   radial-gradient(circle at 18% 18%, rgba(255,255,255,.12), transparent 18%),
+   radial-gradient(circle at 80% 24%, rgba(212,123,76,.17), transparent 16%),
+   linear-gradient(135deg,#0f4347 0%, #135e63 50%, #0d363a 100%);
+  box-shadow:0 30px 80px rgba(12,43,46,.22);
+  display:grid;grid-template-columns:1.2fr .8fr;
+}
+.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;filter:blur(4px);pointer-events:none}
+.hero::before{width:380px;height:380px;background:rgba(41,162,162,.12);top:-120px;left:-80px}
+.hero::after{width:260px;height:260px;background:rgba(255,209,173,.12);right:140px;bottom:-80px}
+.hero-main,.hero-side{position:relative;z-index:1}
+.hero-main{padding:72px 62px 64px;display:flex;flex-direction:column;justify-content:center}
+.hero-kicker{display:inline-flex;align-items:center;gap:10px;color:#9ae1dc;font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:18px}
+.hero-kicker::before{content:"";width:30px;height:1px;background:currentColor;opacity:.8}
+.hero h1{font:400 clamp(3rem,6vw,5.2rem)/.96 'DM Serif Display',serif;color:#fff;max-width:760px;letter-spacing:-.02em}
+.hero h1 em{font-style:italic;color:#ffd9bd}
+.hero p{max-width:720px;color:rgba(255,255,255,.78);font-size:16px;margin-top:20px}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:none;cursor:pointer;padding:14px 22px;border-radius:999px;font-weight:700;font-size:14px;transition:.22s ease}
+.btn-primary{background:#fff;color:var(--brand);box-shadow:0 10px 30px rgba(255,255,255,.13)}
+.btn-primary:hover{transform:translateY(-2px)}
+.btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.15)}
+.hero-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:34px}
+.metric{padding:18px;border-radius:18px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12)}
+.metric strong{display:block;color:#fff;font-size:14px}
+.metric span{display:block;color:rgba(255,255,255,.62);font-size:12px;margin-top:4px}
+.hero-side{padding:34px;border-left:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.04));display:flex;align-items:center}
+.join-panel{width:100%;background:rgba(10,29,31,.18);border:1px solid rgba(255,255,255,.12);border-radius:28px;padding:28px;box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+.join-panel .mini{font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:#ffd9bd}
+.join-panel h3{font:400 2rem/1.08 'DM Serif Display',serif;color:#fff;margin:12px 0}
+.join-panel p{font-size:14px;color:rgba(255,255,255,.7);margin-bottom:18px}
+.role-list{display:grid;gap:12px}
+.role-item{display:flex;gap:14px;align-items:flex-start;padding:16px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);transition:.2s ease;cursor:pointer}
+.role-item:hover{background:rgba(255,255,255,.11);transform:translateX(2px)}
+.role-item .emoji{font-size:20px}
+.role-item strong{display:block;color:#1a0303;font-size:14px}
+.role-item span{display:block;color:rgba(255,255,255,.56);font-size:12px}
+.page-hero{padding:70px 0 20px}
+.page-hero-card{
+  width:min(var(--max),calc(100% - 40px));margin:0 auto;
+  background:rgba(255,255,255,.75);backdrop-filter:blur(14px);border:1px solid rgba(184,215,211,.65);
+  box-shadow:var(--shadow-soft);border-radius:30px;padding:44px 44px 38px
+}
+.page-hero h1{font:400 clamp(2.5rem,4vw,4.2rem)/1.02 'DM Serif Display',serif;margin-top:12px}
+.page-hero p{margin-top:14px;max-width:680px;color:var(--muted)}
+.highlight-band{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:stretch}
+.panel{background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-soft);border-radius:26px;padding:28px}
+.panel.soft{background:linear-gradient(180deg,#fff,#f8fcfb)}
+.pill{display:inline-flex;padding:8px 12px;border-radius:999px;font-size:12px;font-weight:700}
+.pill.brand{background:var(--brand-soft);color:var(--brand)}
+.pill.accent{background:var(--accent-soft);color:#92512b}
+.kv{display:grid;gap:14px}
+.kv-item{padding:16px 18px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,#fff,#fbfefe)}
+.kv-item strong{display:block;font-size:14px;margin-bottom:4px}
+.kv-item span{display:block;color:var(--muted);font-size:13px}
+.people-card{display:grid;grid-template-columns:220px 1fr;gap:28px;align-items:start}
+.mini-photo{aspect-ratio:1/1;border-radius:16px;border:1px solid var(--line);background:linear-gradient(135deg,#dff3f1,#fdf3ea);display:flex;align-items:center;justify-content:center;color:var(--brand);font-weight:700;box-shadow:var(--shadow-soft);overflow:hidden;font-size:12px;margin-bottom:14px}
+.role-group{margin-bottom:44px}
+.role-group:last-child{margin-bottom:0}
+.role-group-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--brand);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.role-group-label::after{content:"";flex:1;height:1px;background:var(--line-strong)}
+.photo{
+  width: 100%;
+  height: 100%;
+  border-radius: 24px;
+  border: 1px solid var(--line);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+}
+.list{display:grid;gap:12px}
+.list li{list-style:none;padding-left:18px;position:relative;color:var(--muted);font-size:14px}
+.list li::before{content:"";position:absolute;left:0;top:10px;width:7px;height:7px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--accent))}
+.accordion{border:1px solid var(--line);border-radius:22px;overflow:hidden;background:#fff;box-shadow:var(--shadow-soft)}
+.acc-head{display:grid;grid-template-columns:64px 1fr auto;gap:16px;align-items:center;padding:22px 24px;cursor:pointer;background:linear-gradient(180deg,#fff,#fbfefe)}
+.acc-head:hover{background:#f8fcfb}
+.avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--brand-soft),var(--accent-soft));border:1px solid var(--line)}
+.acc-meta small{display:block;color:var(--muted);font-size:12px}
+.acc-meta strong{display:block;font-size:16px}
+.acc-body{display:none;padding:0 24px 24px}
+.acc-open .acc-body{display:block}
+.acc-open .acc-toggle{transform:rotate(180deg)}
+.acc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:4px}
+.note{padding:18px;border-radius:18px;background:linear-gradient(180deg,#f8fcfb,#fff);border:1px solid var(--line)}
+.note h4{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);margin-bottom:10px}
+.note p,.note li{font-size:14px;color:var(--muted)}
+.tiles a{text-decoration:none}
+.tile{text-align:left;height:100%}
+.tile .icon-chip{margin-bottom:20px}
+.contact-wrap{display:grid;grid-template-columns:.95fr 1.05fr;gap:24px}
+.form{display:grid;gap:16px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.input-group{display:grid;gap:8px}
+.input-group label{font-size:13px;font-weight:700}
+.input-group input,.input-group select,.input-group textarea{
+  width:100%;padding:14px 16px;border-radius:16px;border:1px solid var(--line);background:#fbfefe;color:var(--text);font:inherit;outline:none;transition:.18s ease
+}
+.input-group textarea{min-height:140px;resize:vertical}
+.input-group input:focus,.input-group select:focus,.input-group textarea:focus{border-color:var(--brand-2);background:#fff;box-shadow:0 0 0 4px rgba(41,162,162,.10)}
+.role-hint,.success-box{display:none;padding:16px 18px;border-radius:18px;font-size:14px}
+.role-hint.visible{display:block;background:var(--brand-soft);color:var(--brand)}
+.success-box{background:#e9fbef;color:#21653b;border:1px solid #b7e4c7}
+.footer{padding:34px 0 50px}
+.footer-card{width:min(var(--max),calc(100% - 40px));margin:0 auto;background:linear-gradient(180deg,#133d41,#0f3034);border:1px solid rgba(255,255,255,.08);color:#fff;border-radius:28px;padding:28px 30px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.footer-card p{color:rgba(255,255,255,.62);font-size:13px;max-width:540px}
+.footer-links{display:flex;gap:10px;flex-wrap:wrap}
+.footer-links a{padding:10px 12px;border-radius:999px;background:rgba(255,255,255,.05);font-size:13px;color:rgba(255,255,255,.72)}
+.mobile-toggle{display:none}
+@media (max-width: 980px){
+  .hero,.highlight-band,.contact-wrap,.people-card,.grid-4,.grid-3,.grid-2,.acc-grid,.form-row{grid-template-columns:1fr}
+  .hero-side{border-left:none;border-top:1px solid rgba(255,255,255,.12)}
+  .hero-metrics{grid-template-columns:1fr}
+}
+@media (max-width: 760px){
+  .topbar{top:8px;padding:12px 14px;align-items:flex-start}
+  .mobile-toggle{display:block;margin-left:auto;background:#fff;border:1px solid var(--line);padding:10px 12px;border-radius:12px;font-weight:700;cursor:pointer}
+  .nav-links{display:none;flex-direction:column;width:100%;margin:12px 0 0}
+  .nav-links.open{display:flex}
+  .nav-links a{width:100%}
+  .hero-main,.hero-side,.page-hero-card,.panel,.card{padding:24px}
+  .section{padding:64px 0}
+  .dropdown-menu{position:static;width:100%;box-shadow:none;border:1px solid var(--line);margin-top:4px}
+  .dropdown-toggle{width:100%}
+}
+</style>
+</head>
+<body>
+  <nav class="topbar">
+    <div class="brand-mark">
+      <div class="brand-orbs"><span style="background:var(--brand)"></span><span style="background:var(--accent)"></span></div>
+      <div class="brand-title">Functional Vision Lab</div>
+    </div>
+    <button class="mobile-toggle" onclick="toggleMobileMenu()">Menu</button>
+    <div class="nav-links" id="navLinks">
+      <a onclick="sp('home')" id="nav-home" class="active">Home</a>
+      <a onclick="sp('people')" id="nav-people">People</a>
+      <a onclick="sp('research')" id="nav-research">Research</a>
+      <a onclick="sp('teaching')" id="nav-teaching">Teaching</a>
+      <a onclick="sp('other')" id="nav-other">Other Activities</a>
+      
+      <!-- Join the Lab Dropdown -->
+      <div class="dropdown" id="joinDropdown">
+        <button class="dropdown-toggle" onclick="toggleDropdown(event)">
+          Join the Lab <span class="arrow">▾</span>
+        </button>
+        <div class="dropdown-menu">
+          <div class="menu-label">Join Us</div>
+          <a onclick="sp('join-member')">👩‍🔬 Join as a Member</a>
+          <div class="divider"></div>
+          <a onclick="sp('join-participant')">🧑‍🤝‍🧑 Join as a Participant</a>
+          <div class="divider"></div>
+          <a onclick="sp('join-expectations')">📋 Lab Expectations</a>
+        </div>
+      </div>
+      
+      <a onclick="sp('contact')" id="nav-contact" class="cta">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HOME PAGE -->
+  <div class="page active" id="page-home">
+    <section class="hero-wrap">
+      <div class="hero">
+        <div class="hero-main">
+          <div class="hero-kicker">Welcome to the lab</div>
+          <h1>Functional Vision Lab</h1>
+          <p>We study how visual mechanisms develop during early childhood and how those trajectories shape learning, reading, and broader neurodevelopment.</p>
+          <p>Our work connects controlled psychophysics with large-scale school studies so that foundational vision science can inform more equitable screening, assessment, and intervention tools.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" onclick="sp('research')">Explore research</a>
+            <a class="btn btn-ghost" onclick="sp('people')">Meet the team</a>
+          </div>
+          <div class="hero-metrics">
+            <div class="metric"><strong>Functional vision</strong><span>Core mechanisms, early representation, attention, and temporal encoding.</span></div>
+            <div class="metric"><strong>Neurodiversity</strong><span>Heterogeneity-focused studies across diverse school populations.</span></div>
+            <div class="metric"><strong>Translation</strong><span>Precision screening and intervention design for real-world impact.</span></div>
+          </div>
+        </div>
+        <div class="hero-side">
+          <div class="join-panel">
+            <div class="mini">Join the lab</div>
+            <h3>We're building work that matters.</h3>
+            <p>The lab welcomes thoughtful, cross-disciplinary researchers interested in children's development, equitable science, and translational impact.</p>
+            <div class="role-list">
+              <div class="role-item" onclick="sp('join-member')"><div class="emoji">👩‍🔬</div><div><strong>Become a Member</strong><span>PhD, postdoc, intern, or thesis student pathways.</span></div></div>
+              <div class="role-item" onclick="sp('join-participant')"><div class="emoji">🧑‍🤝‍🧑</div><div><strong>Join as a Participant</strong><span>Participate in our research studies.</span></div></div>
+              <div class="role-item" onclick="sp('join-expectations')"><div class="emoji">📋</div><div><strong>Lab Expectations</strong><span>What we value and how we work together.</span></div></div>
+            </div>
+            <div class="hero-actions" style="margin-top:18px"><a class="btn btn-primary" style="width:100%" onclick="sp('contact')">Get in touch</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">What we do</div>
+            <h2>From basic visual mechanisms to practical early screening.</h2>
+          </div>
+          <p>The site now presents the lab as a contemporary research studio, with more breathing room, stronger hierarchy, and clearer thematic grouping.</p>
+        </div>
+        <div class="grid grid-3">
+          <article class="card"><div class="icon-chip">◌</div><h3>Development of functional vision</h3><p>We examine how crowding, attention, temporal encoding, and early visual representation emerge and interact through childhood.</p></article>
+          <article class="card"><div class="icon-chip" style="background:linear-gradient(135deg,var(--accent-soft),#fff)">↗</div><h3>Early vision to later cognition</h3><p>We investigate how visual encoding and neurodevelopment relate to reading outcomes and learning trajectories.</p></article>
+          <article class="card"><div class="icon-chip">✦</div><h3>Equitable screening tools</h3><p>We design accessible, gamified assessments that can scale across languages, settings, and socioeconomic contexts.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="shell">
+        <div class="highlight-band">
+          <div class="panel soft">
+            <span class="pill brand">Vision</span>
+            <h3 style="font:400 2rem/1.1 'DM Serif Display',serif;margin:16px 0 10px">Understand vision, neurodevelopment, and learning together.</h3>
+            <p style="color:var(--muted)">The lab's scientific aim is to connect rigorous basic vision research with real-world understanding of developmental diversity and early support needs.</p>
+          </div>
+          <div class="panel">
+            <span class="pill accent">Mission</span>
+            <div class="kv" style="margin-top:16px">
+              <div class="kv-item"><strong>Inclusive science</strong><span>Research in large and demographically diverse populations.</span></div>
+              <div class="kv-item"><strong>Applied impact</strong><span>Evidence that can inform screening, support, and intervention design.</span></div>
+              <div class="kv-item"><strong>Global relevance</strong><span>Tools and findings that work across varied educational contexts.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell tiles">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Explore</div>
+            <h2>Move through the lab by topic.</h2>
+          </div>
+          <p>The original tile navigation is kept, but restyled with better spacing, shadows, and clearer visual affordance.</p>
+        </div>
+        <div class="grid grid-4">
+          <a onclick="sp('people')"><article class="card tile"><div class="icon-chip">👩‍🔬</div><h3>People</h3><p>Meet the team and collaborators.</p></article></a>
+          <a onclick="sp('research')"><article class="card tile"><div class="icon-chip">📄</div><h3>Research</h3><p>Questions, methods, and publications.</p></article></a>
+          <a onclick="sp('teaching')"><article class="card tile"><div class="icon-chip">🎓</div><h3>Teaching</h3><p>Courses, mentoring, and pedagogy.</p></article></a>
+          <a onclick="sp('join-member')"><article class="card tile"><div class="icon-chip">🤝</div><h3>Join the Lab</h3><p>Membership, participation, and expectations.</p></article></a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- PEOPLE PAGE -->
+  <div class="page" id="page-people">
+    <section class="page-hero"><div class="page-hero-card"><div class="eyebrow">People</div><h1>The people behind the work</h1><p>Great science grows through collaboration, complementary expertise, and thoughtful mentorship.</p></div></section>
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Principal investigator &amp; team</div>
+            <h2>Leadership with scientific and translational focus.</h2>
+          </div>
+          <p>Great science comes from diverse perspectives. Meet everyone who makes the lab's work possible.</p>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:22px">
+
+          <!-- PI -->
+          <div class="panel people-card">
+            <div class="photo">
+              <img src="images/maha.jpg" alt="Maha Ramamurthy" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <div>
+              <span class="pill brand" style="margin-bottom:10px">Principal Investigator</span>
+              <h3 style="font:400 2rem/1.1 'DM Serif Display',serif;margin:10px 0 10px">Maha Ramamurthy</h3>
+              <p style="color:var(--muted);margin-bottom:14px">Dr. Ramamurthy is a developmental cognitive neuroscientist and vision scientist interested in understanding how children see, learn, and develop. Her research combines optometry, psychophysics, 
+                and cognitive neuroscience to explore how functional vision influences cognitive skills such as reading, particularly in neurodiverse populations.</p>
+              <ul class="list">
+                  <p>Outside the lab, she's happiest creating—whether that's trying out a new recipe, exploring hidden trails, or putting thoughts into words. She enjoys discovering local experiences,
+                     believes every journey should include good food, and considers vada pav, chai, and monsoon rain the perfect way to end any day.</p>
+              </ul>
+            </div>
+          </div>
+
+          <div class="panel people-card">
+            <div class="photo">
+              <img src="images/chirantani.jpeg" alt="Chirantani" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <div>
+              <span class="pill accent" style="margin-bottom:10px">PhD Student</span>
+              <h3 style="font:400 2rem/1.1 'DM Serif Display',serif;margin:10px 0 10px">Chirantani</h3>
+              <p style="color:var(--muted);margin-bottom:14px"></p>
+              <div class="acc-grid" style="margin-top:4px">
+                <div class="note">
+                  <h4>In the lab</h4>
+                  <p>Chirantana is a PhD student in IIT Madras, She is investigating how neurodiverse adults learn language, adapt to unfamiliar tasks, and develop unique cognitive strategies. Whether it's language, people, or places, she's always curious about how we adapt, learn, and make sense of the world around us.</p>
+                </div>
+                <div class="note">
+                  <h4>Beyond the lab</h4>
+                  <p>🎨 Crafting creative things | 🌮 Hunting for local food gems | 🌍 Always planning the next adventure</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel people-card">
+            <div class="photo">
+              <img src="images/Dipti.jpeg" alt="Dipti" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <div>
+              <span class="pill accent" style="margin-bottom:10px">Summer Intern</span>
+              <h3 style="font:400 2rem/1.1 'DM Serif Display',serif;margin:10px 0 10px">Dipti</h3>
+              <p style="color:var(--muted);margin-bottom:14px"></p>
+              <div class="acc-grid" style="margin-top:4px">
+                <div class="note">
+                  <h4>In the lab</h4>
+                  <p>Recovering software engineer, current AI/ML researcher in healthcare. Somewhere between writing code, wrangling clinical datasets, and building research platforms, I've developed a habit of asking, "Can we automate this?" and then spending the next week actually doing it.</p>
+                </div>
+                <div class="note">
+                  <h4>Beyond the lab</h4>
+                  <p>🧶 Knitting | 🎧 Random playlists | 🌥️ Zoning out (debugging in my head) | 💬 Certified yapper</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel people-card">
+            <div class="photo">
+              <img src="images/Navv.jpeg" alt="Navv" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <div>
+              <span class="pill accent" style="margin-bottom:10px">Summer Intern</span>
+              <h3 style="font:400 2rem/1.1 'DM Serif Display',serif;margin:10px 0 10px">Navv</h3>
+              <p style="color:var(--muted);margin-bottom:14px"></p>
+              <div class="acc-grid" style="margin-top:4px">
+                <div class="note">
+                  <h4>In the lab</h4>
+                  <p>Finding patterns everywhere—from psychophysics data and visual perception to novels, city cafés, and half-finished canvases. If there's a puzzle to solve or a story to uncover, I'm probably already intrigued.</p>
+                </div>
+                <div class="note">
+                  <h4>Beyond the lab</h4>
+                  <p>🎨 Painting | ✏️ Sketching | 📖 Reading | ☕ Café hopping | 🖋️ Writing poetry</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel people-card">
+            <div class="photo">
+              <img src="images/tishya.jpeg" alt="Tishya" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <div>
+              <span class="pill accent" style="margin-bottom:10px">Summer Intern</span>
+              <h3 style="font:400 2rem/1.1 'DM Serif Display',serif;margin:10px 0 10px">Tishya</h3>
+              <p style="color:var(--muted);margin-bottom:14px"></p>
+              <div class="acc-grid" style="margin-top:4px">
+                <div class="note">
+                  <h4>In the lab</h4>
+                  <p>Exploring how neurodevelopmental assessments and interventions can be made more engaging, accessible, and impactful. She's excited to bridge theory and practice while contributing to research that can make a real difference in people's lives.</p>
+                </div>
+                <div class="note">
+                  <h4>Beyond the lab</h4>
+                  <p>🏸 Badminton | 🎵 Indie folk music</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+<div class="panel people-card">
+  <div class="photo">
+    <img src="images/kairavi.jpeg" alt="Kairavi" style="width:100%;height:100%;object-fit:cover;">
+  </div>
+  <div>
+    <span class="pill accent" style="margin-bottom:10px">Thesis Student</span>
+    <h3 style="font:400 2rem/1.1 'DM Serif Display',serif;margin:10px 0 10px">Kairavi</h3>
+    <p style="color:var(--muted);margin-bottom:14px"></p>
+    <div class="acc-grid" style="margin-top:4px">
+      <div class="note">
+        <h4>In the lab</h4>
+        <p>Following the breadcrumbs of language through the human mind. From syntax and sentence processing to the ways language interacts with memory and attention, Kairavi is interested in understanding how we make sense of the world—one sentence at a time.</p>
+      </div>
+      <div class="note">
+        <h4>Beyond the lab</h4>
+        <p>☕ Coffee enthusiast | 🎶 Live music appreciator | 🧬 Evolution thought-experiment enjoyer</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="panel people-card">
+  <div class="photo">
+    <img src="images/mansie.jpeg" alt="Mansie" style="width:100%;height:100%;object-fit:cover;">
+  </div>
+  <div>
+    <span class="pill accent" style="margin-bottom:10px">Thesis Student</span>
+    <h3 style="font:400 2rem/1.1 'DM Serif Display',serif;margin:10px 0 10px">Mansie</h3>
+    <p style="color:var(--muted);margin-bottom:14px"></p>
+    <div class="acc-grid" style="margin-top:4px">
+      <div class="note">
+        <h4>In the lab</h4>
+        <p>Exploring attention, perception, and visual search to understand what makes certain things stand out and how our brains decide what's worth noticing. The irony isn't lost on her—she studies attention while occasionally getting distracted by her own thoughts. Sometimes, the best research questions begin with the most unexpected bathroom epiphanies.</p>
+      </div>
+      <div class="note">
+        <h4>Beyond the lab</h4>
+        <p>💭 Professional daydreamer | 📖 Curiosity-driven rabbit-hole explorer | 👀 Observing everything (except sometimes the obvious)</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="panel people-card">
+  <div class="photo">
+    <img src="images/vandya.jpeg" alt="Vandya" style="width:100%;height:100%;object-fit:cover;">
+  </div>
+  <div>
+    <span class="pill accent" style="margin-bottom:10px">Thesis Student</span>
+    <h3 style="font:400 2rem/1.1 'DM Serif Display',serif;margin:10px 0 10px">Vandya</h3>
+    <p style="color:var(--muted);margin-bottom:14px"></p>
+    <div class="acc-grid" style="margin-top:4px">
+      <div class="note">
+        <h4>In the lab</h4>
+        <p>Exploring how cognitive abilities develop as children grow, especially the wonderfully elusive phenomenon of attention. Equal parts developmental cognition and existential debates about what attention even is, she's always up for asking big questions—preferably with a good novel or a violin nearby.</p>
+      </div>
+      <div class="note">
+        <h4>Beyond the lab</h4>
+        <p>📖 Fiction enthusiast | 🎻 Amateur violinist | 🎶 Collecting favorite tunes one note at a time</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="panel people-card">
+  <div class="photo">
+    <img src="images/atlas.jpeg" alt="Atlas" style="width:100%;height:100%;object-fit:cover;">
+  </div>
+  <div>
+    <span class="pill accent" style="margin-bottom:10px">Independent Study</span>
+    <h3 style="font:400 2rem/1.1 'DM Serif Display',serif;margin:10px 0 10px">Atlas</h3>
+    <p style="color:var(--muted);margin-bottom:14px"></p>
+    <div class="acc-grid" style="margin-top:4px">
+      <div class="note">
+        <h4>In the lab</h4>
+        <p>Exploring how neurodiverse individuals make decisions and process information during cognitive tasks. By combining behavioral experiments with drift diffusion modeling, Atlas looks beyond accuracy scores to 
+          understand the hidden cognitive processes driving performance in visual perception and attention tasks.</p>
+      </div>
+      <div class="note">
+        <h4>Beyond the lab</h4>
+        <p>🖌️ Trying out different art mediums | ✏️ Sketching ideas onto paper | 🧁 Baking with a side of recipe experimentation</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+        </div>
+      </div>
+    </section>
+  </div>
+
+<!-- RESEARCH PAGE -->
+<div class="page" id="page-research">  
+  <section class="section">
+    <div class="shell">
+      <div class="grid grid-3">
+        <article class="card">
+          <div class="icon-chip">◔</div>
+          <h3>Core mechanisms</h3>
+          <p>Sections can foreground crowding, attention, temporal processing, and early visual representation as distinct but connected themes.</p>
+        </article>
+        <article class="card">
+          <div class="icon-chip">⌘</div>
+          <h3>Population studies</h3>
+          <p>Large-scale school-based work can be highlighted with stronger evidence blocks and methodological summaries.</p>
+        </article>
+        <article class="card">
+          <div class="icon-chip">◎</div>
+          <h3>Translation</h3>
+          <p>Screening tools, intervention logic, and applied collaborations can sit in a dedicated impact area.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="shell">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Publications</div>
+          <h2>Selected research from the lab</h2>
+        </div>
+        <p>Peer-reviewed publications spanning vision science, reading development, and neurodiversity.</p>
+      </div>
+      
+      <div class="research-publications" style="margin-top:0;">
+
+        <!-- Publication 1 -->
+        <div style="background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px;margin-bottom:18px;box-shadow:var(--shadow-soft);transition:transform .22s ease, box-shadow .22s ease;">
+          <div style="display:grid;grid-template-columns:80px 1fr;gap:16px;align-items:flex-start;">
+            <span style="background:var(--brand-soft);color:var(--brand);padding:6px 14px;border-radius:999px;font-size:13px;font-weight:700;text-align:center;white-space:nowrap;display:inline-block;">2025</span>
+            <div>
+              <h4 style="font-size:17px;font-weight:700;margin:0 0 6px;line-height:1.3;color:var(--text);">The link between vision and reading: A language-agnostic window into heterogeneity in early reading development.</h4>
+              <p style="font-size:14px;color:var(--muted);margin:0 0 6px;line-height:1.5;">
+                Mahalakshmi Ramamurthy, Klint Kanopka, Julian M Siebert, Lucy Yan, Carrie Townley-Flores, Mónica Zegers, Francesca Pei, Phaedra Bell, Hugh Catts, Maria Luisa Gorno-Tempini, Jason Yeatman
+              </p>
+              <a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IIQxMHMAAAAJ&sortby=pubdate&citation_for_view=IIQxMHMAAAAJ:3fE2CSJIrl8C" target="_blank" style="color:var(--brand);font-size:13px;font-weight:500;text-decoration:none;display:inline-flex;align-items:center;gap:6px;margin-top:4px;">
+                View publication →
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Publication 2 -->
+        <div style="background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px;margin-bottom:18px;box-shadow:var(--shadow-soft);transition:transform .22s ease, box-shadow .22s ease;">
+          <div style="display:grid;grid-template-columns:80px 1fr;gap:16px;align-items:flex-start;">
+            <span style="background:var(--brand-soft);color:var(--brand);padding:6px 14px;border-radius:999px;font-size:13px;font-weight:700;text-align:center;white-space:nowrap;display:inline-block;">2024</span>
+            <div>
+              <h4 style="font-size:17px;font-weight:700;margin:0 0 6px;line-height:1.3;color:var(--text);">Children with dyslexia show no deficit in exogenous spatial attention but show differences in visual encoding</h4>
+              <p style="font-size:14px;color:var(--muted);margin:0 0 6px;line-height:1.5;">
+                Mahalakshmi Ramamurthy, Alex L White, Jason D Yeatman
+              </p>
+              <a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IIQxMHMAAAAJ&sortby=pubdate&citation_for_view=IIQxMHMAAAAJ:Tyk-4Ss8FVUC" target="_blank" style="color:var(--brand);font-size:13px;font-weight:500;text-decoration:none;display:inline-flex;align-items:center;gap:6px;margin-top:4px;">
+                View publication →
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Publication 3 -->
+        <div style="background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px;margin-bottom:18px;box-shadow:var(--shadow-soft);transition:transform .22s ease, box-shadow .22s ease;">
+          <div style="display:grid;grid-template-columns:80px 1fr;gap:16px;align-items:flex-start;">
+            <span style="background:var(--brand-soft);color:var(--brand);padding:6px 14px;border-radius:999px;font-size:13px;font-weight:700;text-align:center;white-space:nowrap;display:inline-block;">2024</span>
+            <div>
+              <h4 style="font-size:17px;font-weight:700;margin:0 0 6px;line-height:1.3;color:var(--text);">Design and validation of a rapid visual processing measure for screening reading difficulties in early childhood</h4>
+              <p style="font-size:14px;color:var(--muted);margin:0 0 6px;line-height:1.5;">
+                Mahalakshmi Ramamurthy, Klint Kanopka, Adam Richie-Halford, Benjamin Domingue, Francesca Pei, Phaedra Bell, Lucy Yan, Andrea Hartsough, Gorno Luisa, Jason Yeatman
+              </p>
+              <a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IIQxMHMAAAAJ&sortby=pubdate&citation_for_view=IIQxMHMAAAAJ:5nxA0vEk-isC" target="_blank" style="color:var(--brand);font-size:13px;font-weight:500;text-decoration:none;display:inline-flex;align-items:center;gap:6px;margin-top:4px;">
+                View publication →
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Publication 4 -->
+        <div style="background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px;margin-bottom:18px;box-shadow:var(--shadow-soft);transition:transform .22s ease, box-shadow .22s ease;">
+          <div style="display:grid;grid-template-columns:80px 1fr;gap:16px;align-items:flex-start;">
+            <span style="background:var(--brand-soft);color:var(--brand);padding:6px 14px;border-radius:999px;font-size:13px;font-weight:700;text-align:center;white-space:nowrap;display:inline-block;">2023</span>
+            <div>
+              <h4 style="font-size:17px;font-weight:700;margin:0 0 6px;line-height:1.3;color:var(--text);">Rapid online assessment of reading (ROAR) technical manual</h4>
+              <p style="font-size:14px;color:var(--muted);margin:0 0 6px;line-height:1.5;">
+                JD Yeatman, C Townley-Flores, K Wentzlof, WA Ma, JM Siebert, M Fuentes-Jimenez, A Saavedra, TS Murray, K Bhat, M Ramamurthy
+              </p>
+              <a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IIQxMHMAAAAJ&sortby=pubdate&citation_for_view=IIQxMHMAAAAJ:KlAtU1dfN6UC" target="_blank" style="color:var(--brand);font-size:13px;font-weight:500;text-decoration:none;display:inline-flex;align-items:center;gap:6px;margin-top:4px;">
+                View publication →
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Publication 5 -->
+        <div style="background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px;margin-bottom:18px;box-shadow:var(--shadow-soft);transition:transform .22s ease, box-shadow .22s ease;">
+          <div style="display:grid;grid-template-columns:80px 1fr;gap:16px;align-items:flex-start;">
+            <span style="background:var(--brand-soft);color:var(--brand);padding:6px 14px;border-radius:999px;font-size:13px;font-weight:700;text-align:center;white-space:nowrap;display:inline-block;">2023</span>
+            <div>
+              <h4 style="font-size:17px;font-weight:700;margin:0 0 6px;line-height:1.3;color:var(--text);">Children with dyslexia have a deficit in visual encoding of letter strings, but not in exogenous attention</h4>
+              <p style="font-size:14px;color:var(--muted);margin:0 0 6px;line-height:1.5;">
+                Mahalakshmi Ramamurthy, Alex White, Patrick Donnelly, Kenny An Tang, Clementine Chou, Grace Adebogun, Jason Yeatman
+              </p>
+              <a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IIQxMHMAAAAJ&sortby=pubdate&citation_for_view=IIQxMHMAAAAJ:2osOgNQ5qMEC" target="_blank" style="color:var(--brand);font-size:13px;font-weight:500;text-decoration:none;display:inline-flex;align-items:center;gap:6px;margin-top:4px;">
+                View publication →
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Publication 6 -->
+        <div style="background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px;margin-bottom:18px;box-shadow:var(--shadow-soft);transition:transform .22s ease, box-shadow .22s ease;">
+          <div style="display:grid;grid-template-columns:80px 1fr;gap:16px;align-items:flex-start;">
+            <span style="background:var(--brand-soft);color:var(--brand);padding:6px 14px;border-radius:999px;font-size:13px;font-weight:700;text-align:center;white-space:nowrap;display:inline-block;">2022</span>
+            <div>
+              <h4 style="font-size:17px;font-weight:700;margin:0 0 6px;line-height:1.3;color:var(--text);">Spatial attention in encoding letter combinations</h4>
+              <p style="font-size:14px;color:var(--muted);margin:0 0 6px;line-height:1.5;">
+                Mahalakshmi Ramamurthy, Alex L White, Clementine Chou, Jason D Yeatman
+              </p>
+              <a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IIQxMHMAAAAJ&sortby=pubdate&citation_for_view=IIQxMHMAAAAJ:qjMakFHDy7sC" target="_blank" style="color:var(--brand);font-size:13px;font-weight:500;text-decoration:none;display:inline-flex;align-items:center;gap:6px;margin-top:4px;">
+                View publication →
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Publication 7 -->
+        <div style="background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px;margin-bottom:18px;box-shadow:var(--shadow-soft);transition:transform .22s ease, box-shadow .22s ease;">
+          <div style="display:grid;grid-template-columns:80px 1fr;gap:16px;align-items:flex-start;">
+            <span style="background:var(--brand-soft);color:var(--brand);padding:6px 14px;border-radius:999px;font-size:13px;font-weight:700;text-align:center;white-space:nowrap;display:inline-block;">2022</span>
+            <div>
+              <h4 style="font-size:17px;font-weight:700;margin:0 0 6px;line-height:1.3;color:var(--text);">
+                Mechanisms of covert spatial attention in encoding letter combinations</h4>
+              <p style="font-size:14px;color:var(--muted);margin:0 0 6px;line-height:1.5;">
+                Mahalakshmi Ramamurthy, Alex White, Clementine Chou, Jason Yeatman
+              </p>
+              <a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IIQxMHMAAAAJ&sortby=pubdate&citation_for_view=IIQxMHMAAAAJ:u-x6o8ySG0sC" target="_blank" style="color:var(--brand);font-size:13px;font-weight:500;text-decoration:none;display:inline-flex;align-items:center;gap:6px;margin-top:4px;">
+                View publication →
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Google Scholar Link -->
+        <div style="text-align:center;margin-top:24px;">
+          <a href="https://scholar.google.com/citations?view_op=list_works&hl=en&hl=en&user=IIQxMHMAAAAJ&sortby=pubdate" target="_blank" style="display:inline-block;padding:14px 32px;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;border-radius:999px;font-weight:600;font-size:14px;text-decoration:none;transition:transform .22s ease, box-shadow .22s ease;box-shadow:0 6px 20px rgba(20,123,123,.25);">
+            View all publications on Google Scholar →
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</div>
+
+  <!-- TEACHING PAGE -->
+  <div class="page" id="page-teaching">
+    <section class="page-hero">
+      <div class="page-hero-card">
+        <div class="eyebrow">Teaching</div>
+        <h1>Teaching and mentoring</h1>
+        <p>Teaching and mentorship are central to how the lab works. Below is Maha's teaching philosophy and journey, shaped by work across India, Canada and the US.</p>
+      </div>
+    </section>
+    <section class="section">
+      <div class="shell">
+        <div class="grid grid-3">
+          <article class="card">
+            <div class="icon-chip">●</div>
+            <h3>Teaching philosophy</h3>
+            <p>aha's teaching began right after her optometry degree in India, teaching neuroanatomy and physiology to pre-med and optometry students. At the University of Waterloo she tutored physiological optics and colour perception, and built a set of demonstrations to help students grasp concepts in perception and optics. 
+              The through-line across these experiences has been designing active learning that reaches students from very different starting points.</p>
+          </article>
+          <article class="card">
+            <div class="icon-chip">▣</div>
+            <h3>Responsive curriculum design</h3>
+            <p>Teaching full undergraduate courses at UMass Boston, where many students were first-generation or returning after a break, required rebuilding the syllabus around example-building and demonstrations. Assignments asked students to generate their own examples for each concept; pre- and post-class quizzes surfaced where reinforcement was needed; informal conversations before class served as ongoing check-ins. 
+              This kept the curriculum responsive to where each student actually was</p>
+          </article>
+          <article class="card">
+            <div class="icon-chip">◇</div>
+            <h3>Adapting across contexts</h3>
+            <p>These experiences taught her to read a classroom's starting point and reshape teaching accordingly. 
+              She carries the same approach into graduate mentoring and into the teaching she does at IIT Gandhinagar today.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+    <section class="section alt">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Mentoring</div>
+            <h2>Expandable content for programs, purpose, and student support.</h2>
+          </div>
+          <p>The original accordion idea is preserved, but rebuilt with softer surfaces, clearer states, and more premium interaction styling.</p>
+        </div>
+        <div class="accordion acc-open" id="acc-teach">
+          <div class="acc-head" onclick="toggleAccordion('acc-teach')">
+            <div class="avatar"></div>
+            <div class="acc-meta">
+              <small>Mentorship initiative</small>
+              <strong>Structured support and guidance</strong>
+            </div>
+            <div class="acc-toggle">⌄</div>
+          </div>
+          <div class="acc-body">
+            <div class="acc-grid">
+              <div class="note">
+                <h4>Purpose</h4>
+                <ul class="list">
+                  <li>Accessible mentorship.</li>
+                  <li>Personalized academic and career guidance.</li>
+                  <li>A supportive space to explore opportunities.</li>
+                </ul>
+              </div>
+              <div class="note">
+                <h4>In practice</h4>
+                <p>Programs, links, community initiatives, and writing can all be placed into cleaner linked modules rather than dense inline blocks.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- JOIN AS MEMBER PAGE -->
+  <div class="page" id="page-join-member">
+    <section class="page-hero">
+      <div class="page-hero-card">
+        <div class="eyebrow">Join the Lab</div>
+        <h1>Join as a Member</h1>
+        <p>We welcome researchers at all career stages who share our passion for understanding functional vision, neurodevelopment, and learning.</p>
+      </div>
+    </section>
+    
+    <section class="section">
+      <div class="shell">
+        <div class="panel" style="margin-bottom:24px;">
+          <span class="pill brand" style="margin-bottom:12px;">For Members</span>
+          <h2 style="font:400 2rem/1.1 'DM Serif Display',serif;margin:12px 0 16px;">How to join the lab as a member</h2>
+          <p style="color:var(--muted);margin-bottom:20px;">We welcome researchers at all career stages who share our passion for understanding functional vision, neurodevelopment, and learning.</p>
+          
+          <!-- Current Openings Section -->
+          <div style="background:var(--brand-soft);border-radius:16px;padding:20px;margin-bottom:24px;border:2px solid var(--brand);">
+            <h3 style="font-size:18px;font-weight:700;color:var(--brand);margin-bottom:12px;">📢 Current Openings</h3>
+            
+            <div style="display:grid;gap:16px;">
+  
+              <!-- Opening 1 -->
+              <div style="background:#fff;border-radius:12px;padding:16px;border:1px solid #e5e7eb;box-shadow:0 1px 2px rgba(0,0,0,0.04);">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;">
+                  <div style="flex:1;min-width:260px;">
+                    <span style="background:#0f766e;color:#fff;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700;display:inline-block;margin-bottom:8px;">OPENING 1</span>
+                    <h4 style="font-size:18px;font-weight:700;color:#111827;margin:0 0 6px;">Behavioral Assessment building & School-
+                      Based Research</h4>
+                    <p style="font-size:13px;color:#6b7280;margin:0 0 8px;">Deadline: August 20, 2026</p>
+                    <p style="font-size:14px;color:#1f2937;line-height:1.6;margin:0;">We are seeking a highly motivated researcher to investigate the relationship between visual processing and reading development in neurodiverse populations.</p>
+                  </div>
+                  <a href="https://drive.google.com/file/d/1cQMJR3dInBZpqjwSaAE0MfhBhamUfLcv/view" target="_blank" rel="noopener noreferrer" style="padding:10px 16px;background:#111827;color:#fff;border-radius:999px;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;display:inline-block;">Apply Now →</a>
+                </div>
+              </div>
+            
+              <!-- Opening 2 -->
+              <div style="background:#fff;border-radius:12px;padding:16px;border:1px solid #e5e7eb;box-shadow:0 1px 2px rgba(0,0,0,0.04);">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;">
+                  <div style="flex:1;min-width:260px;">
+                    <span style="background:#b91c1c;color:#fff;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700;display:inline-block;margin-bottom:8px;">OPENING 2</span>
+                    <h4 style="font-size:18px;font-weight:700;color:#111827;margin:0 0 6px;">Postdoctoral Researcher - EEG & Multimodal Neuroscience</h4>
+                    <p style="font-size:13px;color:#6b7280;margin:0 0 8px;">Last Date: 20 August | Duration: 2 Years</p>
+                    <p style="font-size:14px;color:#1f2937;line-height:1.6;margin:0;">We are looking for a postdoctoral researcher with expertise in machine learning and computer vision to develop novel computational models of visual perception.</p>
+                  </div>
+                  <a href="https://drive.google.com/file/d/1FELfHkoEzZf-JgPhgPRou1hhqEv9jWsD/view" target="_blank" rel="noopener noreferrer" style="padding:10px 16px;background:#111827;color:#fff;border-radius:999px;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;display:inline-block;">Apply Now →</a>
+                </div>
+              </div>
+            
+            </div>
+            
+            <!-- Opening 3 -->
+            <div style="background:#fff;border-radius:12px;padding:16px;margin-bottom:12px;border:1px solid var(--line);">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;">
+                <div>
+                  <span style="background:var(--brand-2);color:#fff;padding:2px 10px;border-radius:999px;font-size:11px;font-weight:700;display:inline-block;margin-bottom:6px;">OPEN</span>
+                  <h4 style="font-size:16px;font-weight:700;color:var(--text);">Internships 2026 - Visual Psychophysics</h4>
+                  <p style="font-size:14px;color:var(--text);margin-top:6px;">Undergraduate summer internship opportunity focused on designing and implementing behavioral experiments in visual psychophysics.</p>
+                </div>
+                <a onclick="sp('contact')" style="padding:8px 16px;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;border-radius:999px;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;cursor:pointer;">Apply Now →</a>
+              </div>
+            </div>
+          </div>
+
+                      <!-- Opening 4 -->
+                      <div style="background:#fff;border-radius:12px;padding:16px;margin-bottom:12px;border:1px solid var(--line);">
+                        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;">
+                          <div>
+                            <span style="background:var(--brand-2);color:#fff;padding:2px 10px;border-radius:999px;font-size:11px;font-weight:700;display:inline-block;margin-bottom:6px;">OPEN</span>
+                            <h4 style="font-size:16px;font-weight:700;color:var(--text);">Volunteering - Visual Psychophysics</h4>
+                            <p style="font-size:14px;color:var(--text);margin-top:6px;">We welcome volunteers from relevant backgrounds, and responsibilities will be assigned based on each applicant’s qualifications, interests, and prior experience.</p>
+                          </div>
+                          <a onclick="sp('contact')" style="padding:8px 16px;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;border-radius:999px;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;cursor:pointer;">Apply Now →</a>
+                        </div>
+                      </div>
+                    </div>
+          
+          <div class="grid grid-2" style="margin-top:16px;">
+            <div class="note">
+              <h4>🎓 PhD Students</h4>
+              <p>Prospective PhD students should apply through the university's graduate program. We encourage you to reach out before applying to discuss potential research directions.</p>
+              <p style="margin-top:8px;font-weight:500;">Current PhD openings: 2 positions available for Fall 2026</p>
+            </div>
+            <div class="note">
+              <h4>🔬 Postdoctoral Researchers</h4>
+              <p>We welcome applications from postdoctoral researchers with relevant experience. Please send your CV, research statement, and contact information for references.</p>
+              <p style="margin-top:8px;font-weight:500;">Current Postdoc openings: 1 position available (immediate start)</p>
+            </div>
+            <div class="note">
+              <h4>☀️ Summer Interns</h4>
+              <p>Short-term research opportunities for undergraduates and early graduate students. Applications are typically reviewed in early spring.</p>
+              <p style="margin-top:8px;font-weight:500;">Current Intern openings: 3 positions available for Summer 2026</p>
+            </div>
+            <div class="note">
+              <h4>📚 Thesis Students</h4>
+              <p>For students interested in completing their bachelor's or master's thesis with the lab, please reach out with your research interests and timeline.</p>
+              <p style="margin-top:8px;font-weight:500;">Current thesis openings: Accepting inquiries year-round</p>
+            </div>
+          </div>
+          
+          <div style="margin-top:20px;padding:16px;background:var(--brand-soft);border-radius:14px;border:1px solid var(--line-strong);">
+            <p style="font-size:14px;color:var(--text);"><strong>📧 Ready to apply?</strong> Contact us at <a href="mailto:functionalvisionlab@gmail.com" style="color:var(--brand);font-weight:600;">functionalvisionlab@example.com</a> with your CV and a brief statement of interest.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- JOIN AS PARTICIPANT PAGE -->
+  <div class="page" id="page-join-participant">
+    <section class="page-hero">
+      <div class="page-hero-card">
+        <div class="eyebrow">Join the Lab</div>
+        <h1>Participate</h1>
+        <p>Your participation helps us understand how visual mechanisms develop and how they relate to learning and reading outcomes.</p>
+      </div>
+    </section>
+    
+    <section class="section">
+      <div class="shell">
+        <div class="panel" style="margin-bottom:24px;">
+          <span class="pill accent" style="margin-bottom:12px;">For Participants</span>
+          <h2 style="font:400 2rem/1.1 'DM Serif Display',serif;margin:12px 0 16px;">Join our research as a participant</h2>
+          <p style="color:var(--muted);margin-bottom:20px;">Your participation helps us understand how visual mechanisms develop and how they relate to learning and reading outcomes.</p>
+          
+          <div class="grid grid-2" style="margin-top:16px;">
+            <div class="note">
+              <h4>👶 Who can participate?</h4>
+              <p>We conduct studies with children and adults across different age groups and neurodevelopmental backgrounds. All participants must meet specific inclusion criteria for each study.</p>
+            </div>
+            <div class="note">
+              <h4>🧪 What does participation involve?</h4>
+              <p>Studies typically involve visual tasks, reading assessments, and computer-based activities. Sessions are designed to be engaging and age-appropriate.</p>
+            </div>
+            <div class="note">
+              <h4>⏰ Time commitment</h4>
+              <p>Most studies require 1-2 sessions lasting approximately 1-2 hours. Some studies may involve multiple sessions spread over weeks or months.</p>
+            </div>
+            <div class="note">
+              <h4>📍 Location</h4>
+              <p>Studies are conducted at our lab facilities. We also conduct remote studies that can be completed from home.</p>
+            </div>
+          </div>
+          
+          <div style="margin-top:20px;padding:16px;background:var(--accent-soft);border-radius:14px;border:1px solid #f5d6c4;">
+            <p style="font-size:14px;color:var(--text);"><strong>🤝 Interested in participating?</strong> Sign up to be notified about upcoming studies or learn more about our current research opportunities.</p>
+            <a onclick="sp('contact')" style="display:inline-block;margin-top:10px;padding:10px 24px;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;border-radius:999px;font-weight:600;font-size:14px;text-decoration:none;cursor:pointer;transition:.22s ease;">Get in touch →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+<!-- LAB EXPECTATIONS PAGE -->
+<div class="page" id="page-join-expectations">
+  <section class="page-hero">
+    <div class="page-hero-card">
+      <div class="eyebrow">Join the Lab</div>
+      <h1>Lab Expectations</h1>
+      <p>What we value and how we work together as a research community.</p>
+    </div>
+  </section>
+  
+  <section class="section">
+    <div class="shell">
+      <div class="panel" style="margin-bottom:24px;">
+        <span class="pill accent" style="margin-bottom:12px;">Lab Expectations</span>
+        <h2 style="font:400 2rem/1.1 'DM Serif Display',serif;margin:12px 0 16px;">What we value and how we work</h2>
+        <p style="color:var(--muted);margin-bottom:20px;">Our lab culture is built on collaboration, curiosity, and commitment to rigorous, equitable science.</p>
+        
+        <!-- Document Content -->
+        <div style="margin-top:16px;">
+          
+          <!-- Last updated -->
+          <p style="font-size:13px;color:var(--muted);margin-bottom:24px;font-style:italic;">Last updated: July 2026</p>
+          
+          <!-- Table of Contents -->
+          <div style="background:var(--brand-soft);border-radius:14px;padding:20px;margin-bottom:24px;border:1px solid var(--line-strong);">
+            <h4 style="font-size:14px;font-weight:700;color:var(--brand);margin-bottom:12px;">📑 Table of Contents</h4>
+            <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 20px;">
+              <a href="#vision" style="font-size:13px;color:var(--text);text-decoration:none;padding:4px 0;display:block;border-bottom:1px solid transparent;transition:.2s ease;" onmouseover="this.style.borderBottom='1px solid var(--brand)'" onmouseout="this.style.borderBottom='transparent'">1. Lab Vision & Research Goals</a>
+              <a href="#conduct" style="font-size:13px;color:var(--text);text-decoration:none;padding:4px 0;display:block;border-bottom:1px solid transparent;transition:.2s ease;" onmouseover="this.style.borderBottom='1px solid var(--brand)'" onmouseout="this.style.borderBottom='transparent'">2. Code of Conduct</a>
+              <a href="#culture" style="font-size:13px;color:var(--text);text-decoration:none;padding:4px 0;display:block;border-bottom:1px solid transparent;transition:.2s ease;" onmouseover="this.style.borderBottom='1px solid var(--brand)'" onmouseout="this.style.borderBottom='transparent'">3. Lab Culture</a>
+              <a href="#children" style="font-size:13px;color:var(--text);text-decoration:none;padding:4px 0;display:block;border-bottom:1px solid transparent;transition:.2s ease;" onmouseover="this.style.borderBottom='1px solid var(--brand)'" onmouseout="this.style.borderBottom='transparent'">4. Working With Children & Schools</a>
+              <a href="#practicalities" style="font-size:13px;color:var(--text);text-decoration:none;padding:4px 0;display:block;border-bottom:1px solid transparent;transition:.2s ease;" onmouseover="this.style.borderBottom='1px solid var(--brand)'" onmouseout="this.style.borderBottom='transparent'">5. Practicalities</a>
+              <a href="#roles" style="font-size:13px;color:var(--text);text-decoration:none;padding:4px 0;display:block;border-bottom:1px solid transparent;transition:.2s ease;" onmouseover="this.style.borderBottom='1px solid var(--brand)'" onmouseout="this.style.borderBottom='transparent'">6. Role-Related Responsibilities</a>
+              <a href="#mentorship" style="font-size:13px;color:var(--text);text-decoration:none;padding:4px 0;display:block;border-bottom:1px solid transparent;transition:.2s ease;" onmouseover="this.style.borderBottom='1px solid var(--brand)'" onmouseout="this.style.borderBottom='transparent'">7. Mentorship</a>
+              <a href="#authorship" style="font-size:13px;color:var(--text);text-decoration:none;padding:4px 0;display:block;border-bottom:1px solid transparent;transition:.2s ease;" onmouseover="this.style.borderBottom='1px solid var(--brand)'" onmouseout="this.style.borderBottom='transparent'">8. Authorship</a>
+              <a href="#where-to-go" style="font-size:13px;color:var(--text);text-decoration:none;padding:4px 0;display:block;border-bottom:1px solid transparent;transition:.2s ease;" onmouseover="this.style.borderBottom='1px solid var(--brand)'" onmouseout="this.style.borderBottom='transparent'">9. Where to Go When Issues Arise</a>
+            </div>
+          </div>
+
+          <!-- 1. Lab Vision -->
+          <div id="vision" class="note" style="margin-bottom:20px;border-left:4px solid var(--brand);">
+            <h4 style="font-size:16px;font-weight:700;color:var(--brand);margin-bottom:10px;">1. Lab Vision and Research Goals</h4>
+            <p style="font-size:14px;color:var(--text);margin-bottom:12px;">The Functional Vision Lab exists to understand how the visual mechanisms underlying learning and cognition develop in early childhood, and to turn that understanding into screening and intervention tools that work for the full diversity of children — across languages, scripts, and socioeconomic contexts. India gives us a rare scientific opportunity: a vast, multilingual population with enormous variation in educational environments. We take that opportunity seriously, and we take the responsibility that comes with it — to children, to schools, and to each other — just as seriously.</p>
+            <p style="font-size:14px;color:var(--text);margin-bottom:12px;">Beyond the science, my goal is to train the next generation of rigorous, ethical, and independent researchers. Whatever your role in the lab — Master's student, RA, volunteer, PhD student, or postdoc — you are here to learn, contribute, and grow, and I am here to support that.</p>
+            <p style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px;">A few things I care about deeply, and hope you will too:</p>
+            <ul class="list">
+              <li><strong>Open, reproducible science.</strong> Code and data are shared within the lab. We aim to publish code and data alongside manuscripts and to preprint our work where possible.</li>
+              <li><strong>Rigor over speed.</strong> We are working with children and with a system (Indian schools, families, and communities) that has trusted us with access. That trust is earned through careful, honest science — not by cutting corners to hit a deadline.</li>
+              <li><strong>Genuine collaboration.</strong> Different people bring different skills — psychophysics, coding, fieldwork, working with schools and families. We win by teaching each other, not by hoarding expertise.</li>
+              <li><strong>Open disagreement.</strong> You will not always agree with me or with each other, and that's fine — I want to hear it. Good science depends on people feeling safe enough to push back.</li>
+            </ul>
+            <p style="font-size:14px;color:var(--muted);margin-top:8px;font-style:italic;">— Maha</p>
+          </div>
+
+          <!-- 2. Code of Conduct -->
+          <div id="conduct" class="note" style="margin-bottom:20px;border-left:4px solid var(--accent);">
+            <h4 style="font-size:16px;font-weight:700;color:var(--accent);margin-bottom:10px;">2. Code of Conduct</h4>
+            <p style="font-size:14px;color:var(--text);margin-bottom:12px;">To do good science together, we need clear expectations for how we treat each other. These are non-negotiable.</p>
+            
+            <p style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px;">Essential policies</p>
+            <p style="font-size:14px;color:var(--text);margin-bottom:12px;">The lab does not tolerate harassment, discrimination, or misconduct of any kind — this includes conduct related to race, caste, religion, gender identity or expression, sexual orientation, disability, region, or language. This applies to every member of the lab regardless of role, seniority, or how long they've been here.</p>
+            
+            <ul class="list" style="margin-bottom:12px;">
+              <li><strong>Discrimination and casteism.</strong> India's academic spaces carry their own history of caste-, region-, and language-based exclusion alongside more familiar forms of discrimination. We take all of these seriously. Slurs, jokes, exclusionary behaviour, or differential treatment on any of these grounds will not be tolerated.</li>
+              <li><strong>Sexual harassment.</strong> IIT Gandhinagar has a statutory Internal Complaints Committee (ICC), constituted under the Sexual Harassment of Women at Workplace (Prevention, Prohibition and Redressal) Act, 2013, covering all faculty, staff, and students regardless of the duration of their association with the Institute. Complaints can be raised confidentially by email or phone to any ICC member. Details: <a href="https://iitgn.ac.in/icc" target="_blank" style="color:var(--brand);text-decoration:underline;">iitgn.ac.in/icc</a>.</li>
+              <li><strong>Ragging and bullying.</strong> IIT Gandhinagar's Honour Code explicitly prohibits ragging, bullying, and physical, verbal, or emotional abuse, including online harassment. This applies fully within the lab, including to interactions between senior and junior lab members. See <a href="https://iitgn.ac.in/students/honourcode" target="_blank" style="color:var(--brand);text-decoration:underline;">iitgn.ac.in/students/honourcode</a>.</li>
+              <li><strong>Scientific misconduct.</strong> Fabrication, falsification, or plagiarism in proposing, performing, reviewing, or reporting research will not be tolerated, nor will research practices that risk the wellbeing of our participants — especially given that many of our participants are children. Honest error and honest disagreement in interpretation are not misconduct, and will never be treated as such.</li>
+            </ul>
+            
+            <p style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px;">Ground rules</p>
+            <ul class="list">
+              <li><strong>Be mindful of hierarchy.</strong> Indian academic culture often carries strong deference to seniority. I want the lab to be an exception — your ideas, questions, and pushback are valued regardless of your position, and no one should feel they can't speak up because of rank.</li>
+              <li><strong>Communicate directly and kindly.</strong> Say what you feel, using "I" statements, and listen to understand rather than to respond. Disagreements are normal; look for resolution, not "winning."</li>
+              <li><strong>Own your mistakes.</strong> Everyone makes them. Acknowledge, apologise sincerely if needed, and move forward without spiralling into self-criticism or public shaming of others.</li>
+              <li><strong>Practice forgiveness, with agency.</strong> We want a culture where accountability is met with a path forward — while respecting that only the affected person gets to decide when they're ready to move on.</li>
+            </ul>
+          </div>
+
+      <!-- 3. Lab Culture -->
+      <div id="culture" class="note" style="margin-bottom:20px;border-left:4px solid var(--brand-2);">
+        <h4 style="font-size:16px;font-weight:700;color:var(--brand-2);margin-bottom:10px;">3. Lab Culture</h4>
+        
+        <p style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px;">Confidentiality</p>
+        <p style="font-size:14px;color:var(--text);margin-bottom:12px;">Personal matters shared with the lab or with me — physical or mental health, financial difficulty, family situations, academic struggles — are confidential unless you explicitly say otherwise. Don't share someone else's sensitive information without their consent, and be mindful of power dynamics when you do ask for that consent.</p>
+        <p style="font-size:14px;color:var(--text);margin-bottom:12px;">One exception: some situations involving the safety of minors (see Section 4) create reporting obligations under Indian law that override confidentiality. If this ever applies, I will tell you directly rather than act on it silently.</p>
+        
+        <p style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px;">Shared spaces</p>
+        <p style="font-size:14px;color:var(--text);margin-bottom:8px;">Lab members typically share office/lab space in the Cognitive and Brain Sciences area. A few basics that make shared space work:</p>
+        <ul class="list" style="margin-bottom:12px;">
+          <li>Check before scheduling a meeting or bringing a guest into shared space.</li>
+          <li>Use headphones for music; step out for long calls.</li>
+          <li>Try to solve a problem on your own for a bit before interrupting someone, but always feel free to ask — we're here to help each other.</li>
+          <li>Respect others' need for quiet, cleanliness, and focus time.</li>
+          <li>If you're unwell, work from home if you can — the lab's work is largely compatible with remote work, except for in-person testing sessions.</li>
+        </ul>
+        
+        <p style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px;">Language and communication norms</p>
+        <p style="font-size:14px;color:var(--text);">We work across Hindi, English, Gujarati, and often other Indian languages, especially when running studies in schools. Use whatever language helps a conversation go well — English for lab meetings and written records by default, but don't let language be a barrier to being understood or understanding others. If you're more comfortable raising something in Hindi or Gujarati, do that.</p>
+      </div>
+
+      <!-- 4. Working With Children -->
+      <div id="children" class="note" style="margin-bottom:20px;border-left:4px solid #e67e22;">
+        <h4 style="font-size:16px;font-weight:700;color:#e67e22;margin-bottom:10px;">4. Working With Children and Schools</h4>
+        <p style="font-size:14px;color:var(--text);margin-bottom:12px;font-style:italic;">This section doesn't have a parallel in most lab-expectations documents, but it's central to how we work. Much of our research involves children, in schools and in the lab, and this comes with specific responsibilities.</p>
+        <ul class="list">
+          <li><strong>Consent and assent.</strong> No child participates without documented parental/guardian consent and age-appropriate child assent, following our IRB/Institutional Ethics Committee-approved protocols. If you are ever unsure whether a procedure is covered by our approved protocol, stop and ask before proceeding — don't improvise with child participants.</li>
+          <li><strong>Child protection.</strong> All lab members working directly with children must be briefed on our child-safety protocols before their first session, in line with the spirit of the Protection of Children from Sexual Offences (POCSO) Act, 2012. This includes never being alone with a child outside of an approved, visible setting, and immediately flagging any concern about a child's welfare to me.</li>
+          <li><strong>Data privacy.</strong> Data from children (video, eye-tracking, behavioural, or otherwise) is de-identified as early in the pipeline as possible and handled with extra care in storage, sharing, and publication. When in doubt about whether something could identify a child or family, ask before you share it — including in lab meetings or conference talks.</li>
+          <li><strong>School and community relationships.</strong> We are guests in the schools and communities we work with. Be professional, punctual, and respectful of school staff and routines. Any promises made to schools or families (about results, timelines, or compensation) should be cleared with me first.</li>
+          <li><strong>Field safety.</strong> Fieldwork sometimes means travel, unfamiliar locations, and working outside standard hours. We plan field visits with everyone's safety in mind, especially for members travelling alone or returning late — flag any safety concerns about a site or schedule and we will adjust.</li>
+        </ul>
+      </div>
+
+      <!-- 5. Practicalities -->
+      <div id="practicalities" class="note" style="margin-bottom:20px;border-left:4px solid #2ecc71;">
+        <h4 style="font-size:16px;font-weight:700;color:#27ae60;margin-bottom:10px;">5. Practicalities: Hours, Leave, Funding, Communication</h4>
+        <p style="font-size:14px;color:var(--text);margin-bottom:12px;font-style:italic;">These are meant as sensible starting defaults. Numbers and specifics will be confirmed and updated as the lab grows — ask me if anything below seems off or unclear.</p>
+        <ul class="list">
+          <li><strong>Work hours.</strong> Academic hours are flexible, but we expect meaningful overlap with core hours (roughly 10am–6pm) so we can collaborate in person. No expectation of weekend or holiday work unless there's a genuine deadline or a time-sensitive testing/data-collection window — and even then, this will be discussed in advance, not assumed.</li>
+          <li><strong>Leave and vacation.</strong> Discuss planned leave with me in advance (about 2 weeks' notice where possible), especially around data collection windows. Indian festival holidays (Diwali, Holi, and others per the Institute academic calendar) and the semester breaks are respected as lab-wide low-activity periods. PhD scholars and RAs should also confirm specific leave entitlements with the Dean of Academic Affairs / HR, as these are set by Institute and funding-agency rules and are periodically revised.</li>
+          <li><strong>Health and family leave.</strong> You're entitled to medical leave, and the reason is yours to keep private if you wish. Please don't come into the lab while contagious — work from home instead. For parental leave, funding varies by position (PhD fellowship, RA project funding, postdoc fellowship), so talk to me early and we'll work out what's possible on a case-by-case basis.</li>
+          <li><strong>Funding transparency.</strong> PhD stipends and RA/postdoc salaries at IITs are set by MHRD/DST/UGC and project-funding-agency norms, and are revised periodically — current PhD fellowship rates and RA pay bands vary by qualification and funding source. I will be upfront with you about your funding source, its duration, and any conditions attached to it, and will flag well in advance if a funding gap is likely.</li>
+          <li><strong>Communication.</strong> WhatsApp and email are our main channels — WhatsApp for quick, day-to-day coordination, email for anything formal or that needs a record. [Add Slack/other tools here if the lab adopts them.] I am most reliably reached by email.</li>
+          <li><strong>Coding and open science.</strong> Everyone working in the lab for more than a semester is expected to build basic coding fluency (Python/MATLAB/R, as relevant to your project) and to keep code and data organised for eventual publication.</li>
+          <li><strong>Onboarding.</strong> New members should get IRB/ethics training, child-safety briefing (if working with child participants), and lab systems access (shared drives, code repositories) before starting independent work. Ask your peer mentor or me if anything is missing.</li>
+        </ul>
+      </div>
+
+      <!-- 6. Role-Related Responsibilities -->
+      <div id="roles" class="note" style="margin-bottom:20px;border-left:4px solid #3498db;">
+        <h4 style="font-size:16px;font-weight:700;color:#2980b9;margin-bottom:10px;">6. Role-Related Responsibilities</h4>
+        
+        <p style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px;">a. Principal Investigator</p>
+        <p style="font-size:14px;color:var(--text);margin-bottom:8px;">My commitment to you:</p>
+        <ul class="list" style="margin-bottom:16px;">
+          <li>Timely, substantive feedback on your project ideas, analyses, code, manuscripts, and talks.</li>
+          <li>Regular meetings, and availability by email/WhatsApp between them.</li>
+          <li>Honest perspective on where your project, the lab, and the field are heading.</li>
+          <li>Active support for your next step — introductions, letters of recommendation, conference opportunities as funding allows.</li>
+          <li>Your wellbeing comes first, ahead of any deadline.</li>
+          <li>If you need a recommendation letter, tell me as early as possible (a month's notice is a good rule of thumb) — I can only write a meaningful, personal letter if I've worked with you substantially and had time to prepare it properly.</li>
+        </ul>
+        
+        <p style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px;">b. Everyone</p>
+        <ul class="list" style="margin-bottom:16px;">
+          <li><strong>Teamwork.</strong> Ask for help when you need it; give it when you can. It's fine to say you don't have the bandwidth right now.</li>
+          <li><strong>Lab meetings.</strong> Present your work at least once or twice a year — early ideas are welcome, not just finished results. Give feedback constructively; assume good faith.</li>
+          <li><strong>Reading and discussion.</strong> Stay current with the literature relevant to your project and share interesting papers with the group.</li>
+          <li><strong>Onboarding others.</strong> Help new members (especially volunteers and junior RAs) get oriented — you were new once too.</li>
+        </ul>
+        
+        <p style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px;">c. Postdoctoral Researchers and Research Associates</p>
+        <p style="font-size:14px;color:var(--text);margin-bottom:16px;">You're expected to work with significant independence — designing studies, leading analyses, and increasingly, co-mentoring students. I'll loop you into grant writing, collaborations, and career-planning conversations as your interests develop. In turn, I'll look to you as a source of technical and mentorship leadership in the lab.</p>
+        
+        <p style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px;">d. PhD Students</p>
+        <p style="font-size:14px;color:var(--text);margin-bottom:16px;">You are training to become an independent researcher with your own line of work. Expect deep involvement in study design, analysis, and writing on your primary project, along with contributions to shared lab infrastructure (protocols, pipelines, field logistics). Committee meetings, conference presentations, and eventually a job search are natural checkpoints for feedback — bring them to me early.</p>
+        
+        <p style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px;">e. Master's Students</p>
+        <p style="font-size:14px;color:var(--text);margin-bottom:16px;">Your thesis or project work should give you a genuine, hands-on experience of the full research cycle — from question to data to write-up — scoped to fit your timeline. We'll agree on a clear, well-defined project early on, with milestones that work backward from your submission deadline. Ask early if the scope needs adjusting; it's much easier to resize a project in month two than month ten.</p>
+        
+        <p style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px;">f. Research Assistants (RAs)</p>
+        <p style="font-size:14px;color:var(--text);margin-bottom:16px;">Whether you're full-time project staff or working alongside coursework, your role centres on specific, well-defined responsibilities — data collection, coding, participant coordination, or analysis pipelines — agreed on when you join. You'll get direct supervision and training on any protocol before you run it independently. Long-term, engaged RAs (particularly on longitudinal projects) are recognised for their contribution through co-authorship where warranted (see Section 8) or acknowledgement.</p>
+        
+        <p style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px;">g. Volunteers and Short-Term Interns (including summer interns)</p>
+        <p style="font-size:14px;color:var(--text);">Welcome — and thank you for contributing your time. Expect a scoped, supervised task or mini-project appropriate to the time you have (weeks to a summer), clear guidance from me or an assigned mentor, and honest feedback on your work. Because your involvement is often brief, authorship is uncommon but not ruled out for exceptional, sustained contributions (see Section 8); acknowledgement in publications and a reference/LOR for future applications are the norm. If you're a minor volunteer or intern (e.g., a school student), additional supervision and parental consent apply.</p>
+      </div>
+
+      <!-- 7. Mentorship -->
+      <div id="mentorship" class="note" style="margin-bottom:20px;border-left:4px solid #9b59b6;">
+        <h4 style="font-size:16px;font-weight:700;color:#8e44ad;margin-bottom:10px;">7. Mentorship</h4>
+        <p style="font-size:14px;color:var(--text);margin-bottom:12px;">Mentorship goes both ways. Mentors owe their mentees clear expectations, regular check-ins, and honest, constructive feedback. Mentees owe their mentors clarity about what they need and realistic effort on agreed tasks.</p>
+        <p style="font-size:14px;color:var(--text);margin-bottom:12px;">Taking on a mentee (often an RA, Master's student, or intern) is optional, and it's a real commitment — regular check-ins and the bandwidth to actually guide someone through their project. If your bandwidth changes mid-project, tell your mentee and me as early as possible so we can find a path forward, rather than letting someone drift unsupported.</p>
+        <p style="font-size:14px;color:var(--text);">For prospective volunteers, interns, or RAs reaching out to join the lab: I read every inquiry, and where I don't have capacity myself, I'll try to connect you with someone in the lab who does.</p>
+      </div>
+
+      <!-- 8. Authorship -->
+      <div id="authorship" class="note" style="margin-bottom:20px;border-left:4px solid #e74c3c;">
+        <h4 style="font-size:16px;font-weight:700;color:#c0392b;margin-bottom:10px;">8. Authorship</h4>
+        <p style="font-size:14px;color:var(--text);margin-bottom:12px;">Authorship should reflect real scientific contribution, and we'd rather be transparent about our norms up front than let expectations stay implicit and cause conflict later.</p>
+        <ul class="list">
+          <li><strong>Basis for authorship.</strong> The core question we ask: would this project be where it is without this person's contribution? This can be intellectual, methodological, or technical (e.g., building a critical piece of the analysis pipeline) — not just time spent. Drawing on ROIs or running a handful of sessions over a few weeks typically isn't sufficient on its own; sustained, substantive engagement (usually more than a single summer) usually is.</li>
+          <li><strong>When it's discussed.</strong> Authorship and author order are not fixed at the start of a project — they're revisited as the team and contributions evolve, and explicitly discussed before a manuscript or preprint is submitted.</li>
+          <li><strong>Order.</strong> Following standard practice in our field, first author = led the project and did the majority of the work; senior/last author = typically the PI; middle authors ordered by extent of contribution. For long-term projects reused across multiple papers, we credit major data-collection contributors via authorship on at least the first paper using that data, and via citation on subsequent ones unless their involvement continues.</li>
+          <li><strong>Documentation.</strong> For any project with more than one contributor, the project lead should keep a simple running note of who did what — this makes authorship conversations easier and less fraught later, and protects everyone, including RAs and short-term contributors, from being overlooked.</li>
+          <li><strong>Conflicts.</strong> If you're unsure about your authorship status or have concerns, raise it with me directly and early — waiting until submission makes it harder to resolve fairly.</li>
+        </ul>
+      </div>
+
+      <!-- 9. Where to Go -->
+      <div id="where-to-go" class="note" style="margin-bottom:20px;border-left:4px solid #f39c12;">
+        <h4 style="font-size:16px;font-weight:700;color:#e67e22;margin-bottom:10px;">9. Where to Go When Issues Arise</h4>
+        <p style="font-size:14px;color:var(--text);margin-bottom:12px;">Your experience in this lab matters, and problems — interpersonal, academic, or otherwise — should have somewhere to go.</p>
+        
+        <p style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:6px;">Lab level.</p>
+        <p style="font-size:14px;color:var(--text);margin-bottom:12px;">Start with me if you can. If the issue involves me, or you'd rather not raise it with me directly, talk to a senior lab member.</p>
+        
+        <p style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:6px;">Institute level.</p>
+        <ul class="list" style="margin-bottom:12px;">
+          <li><strong>Academic or administrative grievances:</strong> the Institute Ombudsman — email <a href="mailto:iitgnombudsman@iitgn.ac.in" style="color:var(--brand);text-decoration:underline;">iitgnombudsman@iitgn.ac.in</a>. Details: <a href="https://iitgn.ac.in/academics/ombudsman" target="_blank" style="color:var(--brand);text-decoration:underline;">iitgn.ac.in/academics/ombudsman</a>.</li>
+          <li><strong>Sexual harassment:</strong> the Internal Complaints Committee (ICC) — <a href="https://iitgn.ac.in/icc" target="_blank" style="color:var(--brand);text-decoration:underline;">iitgn.ac.in/icc</a>.</li>
+          <li><strong>Discrimination on grounds of caste, disability, etc.:</strong> IIT Gandhinagar's Grievance Redressal Cell for SC/ST/OBC/PwD students and employees.</li>
+          <li><strong>Ragging or bullying:</strong> covered under the Institute Honour Code — <a href="https://iitgn.ac.in/students/honourcode" target="_blank" style="color:var(--brand);text-decoration:underline;">iitgn.ac.in/students/honourcode</a>.</li>
+        </ul>
+        
+        <p style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:6px;">Wellbeing.</p>
+        <p style="font-size:14px;color:var(--text);">Please look after yourself, and reach out for support early rather than waiting until things feel unmanageable. IIT Gandhinagar's counselling and wellness services are available to all students and staff — ask me or Student Affairs for current contact details if you need them.</p>
+        
+        <div style="margin-top:16px;padding-top:16px;border-top:2px solid var(--line);">
+          <p style="font-size:13px;color:var(--muted);font-style:italic;">This document is a living one and will be revised as the lab grows. If something here doesn't match your experience, or you think it should say something it doesn't, tell me — that's exactly the kind of feedback that makes it better.</p>
+        </div>
+      </div>
+      
+    </div>
+    <!-- End Document Content -->
+    
+  </div>
+</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- OTHER ACTIVITIES PAGE -->
+  <div class="page" id="page-other">
+    <section class="page-hero">
+      <div class="page-hero-card">
+        <div class="eyebrow">Other activities</div>
+        <h1>Writing, outreach, and community work</h1>
+        <p>This section can become more magazine-like, with publication cards, external links, and community work modules that are easier to scan.</p>
+      </div>
+    </section>
+    <section class="section">
+      <div class="shell">
+        <div class="grid grid-2">
+          <article class="panel">
+            <span class="pill accent">Writing</span>
+            <h3 style="margin:16px 0 8px">A cleaner home for essays and public-facing work</h3>
+            <p style="color:var(--muted)">Medium posts, field notes, and essays can be shown as publication cards with consistent metadata and stronger typography.</p>
+          </article>
+          <article class="panel">
+            <span class="pill brand">Community</span>
+            <h3 style="margin:16px 0 8px">Better framing for volunteer and outreach initiatives</h3>
+            <p style="color:var(--muted)">Community work deserves its own visual hierarchy instead of being tucked into small inline panels.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- CONTACT PAGE -->
+  <div class="page" id="page-contact">
+    <section class="page-hero">
+      <div class="page-hero-card">
+        <div class="eyebrow">Contact</div>
+        <h1>Start a conversation</h1>
+        <p>The contact page is reworked into a stronger two-column layout with clearer reasons to reach out and a more polished form.</p>
+      </div>
+    </section>
+    <section class="section">
+      <div class="shell">
+        <div class="contact-wrap">
+          <div class="panel soft">
+            <div class="eyebrow">Ways to connect</div>
+            <h2 style="font:400 2rem/1.08 'DM Serif Display',serif;margin:14px 0 10px">Collaboration, study opportunities, and partnerships</h2>
+            <div class="role-list" style="margin-top:18px">
+              <div class="role-item" onclick="setRole('graduate')">
+                <div class="emoji">🎓</div>
+                <div><strong>Graduate study</strong><span>Questions about research training or doctoral work.</span></div>
+              </div>
+              <div class="role-item" onclick="setRole('collaborate')">
+                <div class="emoji">🤝</div>
+                <div><strong>Collaboration</strong><span>Methods, schools, and interdisciplinary research.</span></div>
+              </div>
+              <div class="role-item" onclick="setRole('school')">
+                <div class="emoji">🏫</div>
+                <div><strong>School partnerships</strong><span>Field studies and implementation contexts.</span></div>
+              </div>
+              <div class="role-item" onclick="setRole('clinical')">
+                <div class="emoji">🩺</div>
+                <div><strong>Clinical partnerships</strong><span>Validation, referrals, and translational collaboration.</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <form class="form" id="contact-form" onsubmit="handleSubmit(event)" name="contact" data-netlify="true">
+              <input type="hidden" name="form-name" value="contact">
+              <div id="role-hint" class="role-hint"></div>
+              <div id="form-success" class="success-box">Thanks — your message has been queued successfully.</div>
+              <div class="form-row">
+                <div class="input-group">
+                  <label>First name</label>
+                  <input type="text" name="first-name" required>
+                </div>
+                <div class="input-group">
+                  <label>Last name</label>
+                  <input type="text" name="last-name">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="input-group">
+                  <label>Email</label>
+                  <input type="email" name="email" required>
+                </div>
+                <div class="input-group">
+                  <label>Reason</label>
+                  <select id="role-select" name="role">
+                    <option value="">Select</option>
+                    <option value="graduate">Graduate study</option>
+                    <option value="postdoc">Postdoctoral work</option>
+                    <option value="intern">Summer internship</option>
+                    <option value="collaborate">Research collaboration</option>
+                    <option value="school">School partnership</option>
+                    <option value="clinical">Clinical partnership</option>
+                  </select>
+                </div>
+              </div>
+              <div class="input-group">
+                <label>Message</label>
+                <textarea name="message" placeholder="Tell us about your interest, background, or proposed collaboration."></textarea>
+              </div>
+              <button class="btn" style="background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;width:max-content">Send message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-card">
+      <div>
+        <div class="brand-title" style="color:#fff;margin-bottom:8px">Functional Vision Lab</div>
+        <p>A refined single-file concept preserving the site's multi-page navigation while upgrading its visual system, spacing, responsiveness, and overall polish.</p>
+      </div>
+      <div class="footer-links">
+        <a onclick="sp('home')">Home</a>
+        <a onclick="sp('people')">People</a>
+        <a onclick="sp('research')">Research</a>
+        <a onclick="sp('teaching')">Teaching</a>
+        <a onclick="sp('join-member')">Join</a>
+        <a onclick="sp('other')">Other</a>
+        <a onclick="sp('contact')">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+<script>
+const roleMessages = {
+  graduate: 'You selected Graduate study. Use the form to share your background, interests, and why the lab is a strong fit.',
+  postdoc: 'You selected Postdoctoral work. Share your research direction, methods, and funding timeline.',
+  intern: 'You selected Summer internship. Mention timing, skills, and what kind of project you hope to join.',
+  collaborate: 'You selected Research collaboration. Tell us about the problem space, methods, and possible overlap.',
+  school: 'You selected School partnership. Share your context, population, and the kind of field collaboration you have in mind.',
+  clinical: 'You selected Clinical partnership. Briefly describe the clinical context, validation need, or referral pathway.'
+};
+
+// Toggle mobile menu
+function toggleMobileMenu() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+// Toggle dropdown
+function toggleDropdown(event) {
+  event.stopPropagation();
+  const dropdown = document.getElementById('joinDropdown');
+  dropdown.classList.toggle('open');
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(event) {
+  const dropdown = document.getElementById('joinDropdown');
+  if (!dropdown.contains(event.target)) {
+    dropdown.classList.remove('open');
+  }
+});
+
+// Navigation function
+function sp(page, section='') {
+  // Hide all pages
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  
+  // Show target page
+  const target = document.getElementById('page-' + page);
+  if (target) target.classList.add('active');
+  
+  // Update nav links
+  document.querySelectorAll('.nav-links a, .dropdown-menu a').forEach(a => a.classList.remove('active'));
+  
+  // Handle special case for join pages
+  if (page.startsWith('join-')) {
+    const nav = document.getElementById('nav-join');
+    if (nav) nav.classList.add('active');
+  } else {
+    const nav = document.getElementById('nav-' + page);
+    if (nav) nav.classList.add('active');
+  }
+  
+  // Close mobile menu
+  document.getElementById('navLinks').classList.remove('open');
+  
+  // Close dropdown
+  document.getElementById('joinDropdown').classList.remove('open');
+  
+  // Scroll to top
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// Toggle accordion
+function toggleAccordion(id) {
+  document.getElementById(id).classList.toggle('acc-open');
+}
+
+// Set role for contact form
+function setRole(role) {
+  // Navigate to contact page
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const contactPage = document.getElementById('page-contact');
+  if (contactPage) contactPage.classList.add('active');
+  
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  const nav = document.getElementById('nav-contact');
+  if (nav) nav.classList.add('active');
+  document.getElementById('navLinks').classList.remove('open');
+  
+  const select = document.getElementById('role-select');
+  const hint = document.getElementById('role-hint');
+  if (select) select.value = role;
+  if (hint && roleMessages[role]) {
+    hint.textContent = roleMessages[role];
+    hint.classList.add('visible');
+  }
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// Handle form submission
+async function handleSubmit(e) {
+  e.preventDefault();
+  const form = e.target;
+  const button = form.querySelector('button');
+  const original = button.textContent;
+  button.textContent = 'Sending...';
+  button.disabled = true;
+  
+  try {
+    const body = new URLSearchParams(new FormData(form)).toString();
+    const response = await fetch('/', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body: body
+    });
+    if (!response.ok) throw new Error('failed');
+    form.querySelectorAll('.input-group, .form-row, button').forEach(el => el.style.display = 'none');
+    document.getElementById('form-success').style.display = 'block';
+    document.getElementById('role-hint').style.display = 'none';
+  } catch(err) {
+    button.textContent = original;
+    button.disabled = false;
+    alert('Sorry, something went wrong. Please try again.');
+  }
+}
+</script>
+</body>
+</html>
