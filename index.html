@@ -246,8 +246,8 @@
     }
 
     .role-item .emoji { font-size: 20px; }
-    .role-item strong { display: block; font-size: 14px; }
-    .role-item span { display: block; color: var(--muted); font-size: 12px; }
+    .role-item strong { display: block; font-size: 14px; color: #ffffff; }
+    .role-item span { display: block; color: rgba(255,255,255,0.85); font-size: 12px; }
 
     /* ===== TOPBAR / NAVIGATION ===== */
     .topbar {
@@ -531,15 +531,14 @@
 
 /* ===== RIGHT SIDE: GRAPH CAROUSEL ===== */
 .research-right {
-  position: sticky;
-  top: 100px;
+  align-self: center;
 }
 
 .graph-carousel-container {
   background: #fff;
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
-  padding: 24px;
+  padding: 24px 24px 0px;
   box-shadow: var(--shadow-soft);
 }
 
@@ -561,8 +560,12 @@
   background: var(--bg);
   border-radius: 12px;
   padding: 12px;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 350px; /* Keeps the container tall so the image doesn't jump around */
 }
+
 
 .graph-image {
   width: 100%;
@@ -2060,8 +2063,6 @@
               <div class="graph-slide active" data-index="0">
                 <div class="graph-image-wrapper">
                   <img src="graphs/Screenshot 2026-09-01 at 5.49.24 PM.png" alt="Figure 1: Effect of Letter Position" class="graph-image">
-                  <div class="graph-image-caption">
-                  </div>
                 </div>
               </div>
 
@@ -2070,16 +2071,12 @@
               <div class="graph-slide" data-index="0">
                 <div class="graph-image-wrapper">
                   <img src="graphs/WhatsApp Image 2026-09-01 at 13.06.50.jpeg" alt="Figure 1: Proportion Error by Condition" class="graph-image">
-                  <div class="graph-image-caption">
-                  </div>
                 </div>
               </div>
 
               <div class="graph-slide" data-index="1">
                 <div class="graph-image-wrapper">
                   <img src="graphs/WhatsApp Image 2026-09-01 at 13.07.01.jpeg" alt="Figure 2: Proportion Error by Condition" class="graph-image">
-                  <div class="graph-image-caption">
-                  </div>
                 </div>
               </div>
 
@@ -2087,8 +2084,6 @@
               <div class="graph-slide" data-index="2">
                 <div class="graph-image-wrapper">
                   <img src="graphs/Screenshot 2026-09-01 at 5.26.19 PM.png" alt="Figure 3: Variance Explained" class="graph-image">
-                  <div class="graph-image-caption">
-                  </div>
                 </div>
               </div>
 
@@ -2096,8 +2091,6 @@
               <div class="graph-slide" data-index="3">
                 <div class="graph-image-wrapper">
                   <img src="graphs/Screenshot 2026-09-01 at 5.27.16 PM.png" alt="Figure 4: Prediction Accuracy" class="graph-image">
-                  <div class="graph-image-caption">
-                  </div>
                 </div>
               </div>
 
@@ -2105,23 +2098,8 @@
               <div class="graph-slide" data-index="4">
                 <div class="graph-image-wrapper">
                   <img src="graphs/Screenshot 2026-09-01 at 5.27.28 PM.png" alt="Figure 5: Subgroups Identified" class="graph-image">
-                  <div class="graph-image-caption">
-                                      </div>
                 </div>
               </div>
-            </div>
-
-            <!-- Graph Controls -->
-            <div class="graph-controls">
-              <button class="graph-nav-btn" id="graphPrev" aria-label="Previous graph">←</button>
-              <div class="graph-dots" id="graphDots">
-                <span class="graph-dot active" data-index="0"></span>
-                <span class="graph-dot" data-index="1"></span>
-                <span class="graph-dot" data-index="2"></span>
-                <span class="graph-dot" data-index="3"></span>
-                <span class="graph-dot" data-index="4"></span>
-              </div>
-              <button class="graph-nav-btn" id="graphNext" aria-label="Next graph">→</button>
             </div>
           </div>
         </div>
@@ -2876,32 +2854,21 @@ function prevGraph() {
 }
 
 // Initialize graph carousel
+// Initialize graph carousel
 document.addEventListener('DOMContentLoaded', function() {
-  const prevBtn = document.getElementById('graphPrev');
-  const nextBtn = document.getElementById('graphNext');
-  const dots = document.querySelectorAll('.graph-dot');
+  // Removed previous button and dots logic to avoid errors
 
-  if (prevBtn) prevBtn.addEventListener('click', prevGraph);
-  if (nextBtn) nextBtn.addEventListener('click', nextGraph);
+  // Auto-rotate every 8 seconds (7-10 sec range)
+  var autoRotate = setInterval(nextGraph, 5000);
 
-  dots.forEach(function(dot) {
-    dot.addEventListener('click', function() {
-      var index = parseInt(this.getAttribute('data-index'));
-      showGraph(index);
-    });
-  });
-
-  // Auto-rotate every 6 seconds
-  var autoRotate = setInterval(nextGraph, 6000);
-
-  // Pause auto-rotate on hover
+  // Pause auto-rotate on hover (Optional - remove if you want it to always change)
   var container = document.querySelector('.graph-carousel-container');
   if (container) {
     container.addEventListener('mouseenter', function() {
       clearInterval(autoRotate);
     });
     container.addEventListener('mouseleave', function() {
-      autoRotate = setInterval(nextGraph, 6000);
+      autoRotate = setInterval(nextGraph, 5000);
     });
   }
 
