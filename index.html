@@ -389,6 +389,68 @@
       color: var(--muted);
       padding: 6px 14px 4px;
     }
+
+    /* ===== DONATE HERO ===== */
+    .donate-hero {
+      background: linear-gradient(180deg, #fdf6f0 0%, #fbe8dc 100%);
+      border-radius: 30px;
+      padding: 64px 40px 56px;
+      text-align: center;
+      border: 1px solid var(--accent-soft);
+      box-shadow: var(--shadow-soft);
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .donate-icon {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 24px;
+      display: block;
+    }
+
+    .donate-hero h1 {
+      font: 400 clamp(2rem, 4vw, 3rem)/1.1 'DM Serif Display', serif;
+      color: #8a3d1f;
+      margin-bottom: 12px;
+    }
+
+    .donate-hero p {
+      font-size: 16px;
+      color: #7a5040;
+      max-width: 520px;
+      margin: 0 auto 28px;
+      line-height: 1.7;
+    }
+
+    .donate-hero-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 40px;
+      background: linear-gradient(135deg, var(--accent), #e67e22);
+      color: #fff;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 16px;
+      text-decoration: none;
+      transition: .22s ease;
+      box-shadow: 0 10px 28px rgba(212, 123, 76, 0.28);
+    }
+
+    .donate-hero-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 34px rgba(212, 123, 76, 0.36);
+    }
+
+    .donate-caption {
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #a4715a;
+      margin-top: 14px;
+      font-weight: 600;
+    }
 /* ===== RESEARCH LAYOUT ===== */
 .research-layout {
   display: grid;
@@ -1641,8 +1703,8 @@
       </div>
 
       <a onclick="navigate('contact')" id="nav-contact">Contact</a>
-      <a onclick="navigate('donate')" id="nav-donate" class="cta" style="background: linear-gradient(135deg, var(--accent), #e67e22);">Donate</a>
-    </div>
+      <a onclick="navigate('donate')" id="nav-donate" class="cta" style="background: linear-gradient(135deg, var(--accent), #e67e22);">🫶 Give</a>
+      </div>
   </nav>
 
   <!-- ============================================================ -->
@@ -2969,48 +3031,78 @@ document.addEventListener('DOMContentLoaded', function() {
 <!-- ===== DONATE PAGE (OUTSIDE THE SCRIPT) ===== -->
 <!-- ============================================================ -->
 <div class="page" id="page-donate">
-<section class="page-hero">
-  <div class="page-hero-card">
-    <div class="eyebrow">Support Our Work</div>
-    <h1>Donate to the Lab</h1>
-    <p>Your generosity helps us uncover how children see, learn, and develop—and turn those findings into real-world tools for schools and families.</p>
-  </div>
-</section>
+  <section class="page-hero">
+    <div class="page-hero-card">
+      <div class="eyebrow">Support Our Work</div>
+      <h1>Give to the Lab 🫶</h1>
+      <p>Your generosity helps us uncover how children see, learn, and develop — and turn those findings into real-world tools for schools and families.</p>
+    </div>
+  </section>
 
-<section class="section">
-  <div class="shell">
-    <div class="panel" style="margin-bottom:24px; max-width: 800px; margin-left: auto; margin-right: auto;">
-      <span class="pill accent" style="margin-bottom:12px;">Thank You 🫶</span>
-      <h2 style="font:400 2rem/1.1 'DM Serif Display',serif;margin:12px 0 16px;">Your support makes a difference.</h2>
-      <p style="color:var(--muted);margin-bottom:20px; font-size:16px;">
-        We are deeply grateful for your consideration. Every contribution—whether it covers a child's assessment, supports a student researcher, or helps us buy a new eye-tracker—allows us to keep asking the big questions. 
-      </p>
-      <p style="color:var(--muted);margin-bottom:24px; font-size:16px;">
-        Because we are a university-based lab, we handle donations through direct bank transfer or institutional grants. We would love to connect with you personally to discuss how you'd like to support our work and to thank you properly.
-      </p>
+  <section class="section">
+    <div class="shell">
+      <div class="donate-hero">
+        <!-- Hand holding heart SVG (matches your reference) -->
+        <svg class="donate-icon" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- Heart -->
+          <path d="M100 55 
+                   C 100 30, 65 25, 65 55 
+                   C 65 80, 100 105, 100 105 
+                   C 100 105, 135 80, 135 55 
+                   C 135 25, 100 30, 100 55 Z"
+                fill="#c85a5a"/>
+          <!-- Hand -->
+          <path d="M 30 120 
+                   C 30 115, 40 105, 60 105 
+                   L 90 105 
+                   C 95 105, 95 115, 90 115 
+                   L 65 115 
+                   C 60 115, 55 118, 55 125 
+                   L 55 135 
+                   C 75 145, 105 150, 130 140 
+                   C 150 132, 170 128, 175 128 
+                   C 182 128, 182 145, 175 148 
+                   C 155 155, 120 165, 80 160 
+                   C 50 156, 35 145, 30 138 
+                   Z"
+                fill="#ffffff"
+                stroke="#e0cfc0"
+                stroke-width="1.5"/>
+        </svg>
 
-      <div style="background: var(--bg-2); border-radius: 14px; padding: 20px; border: 1px solid var(--line); margin-bottom: 24px;">
-        <h4 style="font-size: 14px; font-weight: 700; color: var(--brand); margin-bottom: 12px;">📬 How to Donate</h4>
-        <p style="font-size: 14px; color: var(--text); line-height: 1.7; margin-bottom: 16px;">
-          Please click the button below to send an email to our lab manager. Let us know that you are interested in donating, and we will send you the necessary bank transfer details, tax exemption forms (if applicable), and a personal thank-you note.
-        </p>
-        <a href="mailto:functionalvisionlab@gmail.com?subject=Donation%20Inquiry%20for%20Functional%20Vision%20Lab&body=Hello%2C%0A%0AI%20would%20like%20to%20make%20a%20donation%20to%20support%20the%20Functional%20Vision%20Lab.%20Could%20you%20please%20send%20me%20the%20necessary%20details%20to%20proceed%3F%0A%0AThank%20you%20for%20your%20work.%0A%0ABest%20regards%2C" style="display:inline-flex; align-items:center; gap:10px; padding:14px 28px; background: linear-gradient(135deg, var(--accent), #e67e22); color:#fff; border-radius:999px; font-weight:700; font-size:15px; text-decoration:none; transition: .22s ease; box-shadow: 0 6px 20px rgba(212, 123, 76, 0.25);">
-          🫶 ✉️ Email Us to Donate
+        <h1>Make a gift</h1>
+        <p>Every contribution — big or small — helps a child be seen, a student be trained, and a discovery be shared.</p>
+
+        <a href="mailto:functionalvisionlab@gmail.com?subject=Gift%20to%20the%20Functional%20Vision%20Lab&body=Hello%2C%0A%0AI%20would%20like%20to%20support%20the%20Functional%20Vision%20Lab.%20Could%20you%20please%20share%20the%20details%20I%20need%20to%20make%20a%20gift%3F%0A%0AThank%20you%20for%20your%20work.%0A%0ABest%20regards%2C" class="donate-hero-btn">
+          🫶 Give
         </a>
+        <p class="donate-caption">Help us see further</p>
       </div>
 
-      <div style="margin-top: 24px;">
-        <h4 style="font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 12px;">Where your donation goes:</h4>
-        <ul class="list" style="margin-left: 0; padding-left: 18px;">
+      <!-- Info panel below the hero -->
+      <div class="panel" style="margin-top: 40px; max-width: 780px; margin-left: auto; margin-right: auto;">
+        <span class="pill accent" style="margin-bottom:12px;">Where your gift goes</span>
+        <h2 style="font:400 1.6rem/1.15 'DM Serif Display', serif; margin: 8px 0 20px;">Every gift is felt.</h2>
+
+        <ul class="list" style="margin-bottom: 28px;">
           <li><strong>Participant Support:</strong> Covering travel costs and small tokens of appreciation for the children and families who volunteer their time.</li>
           <li><strong>Equipment:</strong> Purchasing and maintaining high-precision eye-trackers and visual psychophysics equipment.</li>
           <li><strong>Student Training:</strong> Funding undergraduate and graduate students to present their research at international conferences.</li>
           <li><strong>Open Science:</strong> Supporting the publication of open-access papers so that schools worldwide can use our findings.</li>
         </ul>
+
+        <div style="background: var(--bg-2); border-radius: 14px; padding: 20px; border: 1px solid var(--line);">
+          <h4 style="font-size: 14px; font-weight: 700; color: var(--brand); margin-bottom: 10px;">📬 How to give</h4>
+          <p style="font-size: 14px; color: var(--text); line-height: 1.7; margin-bottom: 14px;">
+            Because we're a university-based lab, we handle gifts through direct bank transfer or institutional grants. Reach out and we'll send you the details, plus a personal thank-you.
+          </p>
+          <a href="mailto:functionalvisionlab@gmail.com?subject=Gift%20Inquiry%20for%20Functional%20Vision%20Lab&body=Hello%2C%0A%0AI%20would%20like%20to%20make%20a%20gift%20to%20support%20the%20Functional%20Vision%20Lab.%20Could%20you%20please%20send%20me%20the%20necessary%20details%3F%0A%0AThank%20you.%0A%0ABest%20regards%2C" style="display:inline-flex; align-items:center;gap:10px;padding:12px 24px;background:linear-gradient(135deg,var(--accent),#e67e22);color:#fff;border-radius:999px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 6px 20px rgba(212,123,76,.25);">
+            🫶 Reach Out to Give
+          </a>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 </div><!-- /page-donate -->
 
 </body>
