@@ -246,8 +246,23 @@
     }
 
     .role-item .emoji { font-size: 20px; }
+    
+    /* Default styling (for dark backgrounds like the Home page Hero) */
     .role-item strong { display: block; font-size: 14px; color: #ffffff; }
     .role-item span { display: block; color: rgba(255,255,255,0.85); font-size: 12px; }
+
+    /* Styling specifically for the Contact page (light background) */
+    #page-contact .role-item {
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+    }
+    #page-contact .role-item:hover {
+      background: #fff;
+      border-color: var(--brand);
+      box-shadow: var(--shadow-soft);
+    }
+    #page-contact .role-item strong { color: var(--text); }
+    #page-contact .role-item span { color: var(--muted); }
 
     /* ===== TOPBAR / NAVIGATION ===== */
     .topbar {
